@@ -9,13 +9,13 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { Icon } from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 // Import Screens
 import HomeScreen from './DrawerScreens/HomeScreen';
 import SettingsScreen from './DrawerScreens/SettingsScreen';
 import CustomSidebarMenu from './Components/CustomSidebarMenu';
 import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
-import { Text, View } from 'react-native';
+import {Text, View} from 'react-native';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -49,9 +49,9 @@ const SettingScreenStack = ({navigation}) => {
     <Stack.Navigator
       initialRouteName="SettingsScreen"
       screenOptions={{
-        /* headerLeft: () => (
+        headerLeft: () => (
           <NavigationDrawerHeader navigationProps={navigation} />
-        ), */
+        ),
         headerStyle: {
           backgroundColor: '#3e9447', //Set Header color
         },
@@ -103,34 +103,45 @@ const DrawerNavigatorRoutes1 = props => {
 const DrawerNavigatorRoutes = props => {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
-        if (route.name === 'Home') {
-          iconName = focused ? 'home': 'home-outline';
-        } else if (route.name === 'Settings') {
-          iconName = focused ? 'settings' : 'settings-outline';
-        }
-        else  {
-          iconName = focused ? 'settings' : 'settings-outline';
-        }
-        // You can return any component that you like here!
-        return <Icon name={`md-${iconName}`} type="ionicon" color="black" />;
-        //return <Text style={{color:'black', fontWeight:'bold'}}>A</Text>;
-        //return <View><Icon name='home'/></View>
-      },
-      tabBarActiveTintColor: 'blue',
-      tabBarInactiveTintColor: 'gray',
-      tabBarActiveBackgroundColor: '#96d483',
-      tabBarInactiveBackgroundColor: '#d8dbf2'
-
-    })}
-  >
-      <Tab.Screen name="Home" component={DrawerNavigatorRoutes1} options={{headerShown: false}}/>      
-      <Tab.Screen name="Settings" component={SettingScreenStack} options={{headerShown: false}}/>  
-      <Tab.Screen name="Settings2" component={SettingScreenStack} options={{headerShown: false}}/>
-      <Tab.Screen name="Settings3" component={SettingScreenStack} options={{headerShown: false}}/>
-      <Tab.Screen name="Settings4" component={SettingScreenStack} options={{headerShown: false}}/>   
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          } else if (route.name === 'Tài khoản') {
+            iconName = focused ? 'man' : 'man-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          } else {
+            iconName = focused ? 'settings' : 'settings-outline';
+          }
+          // You can return any component that you like here!
+          return <Icon name={`md-${iconName}`} type="ionicon" color="black" />;
+          //return <Text style={{color:'black', fontWeight:'bold'}}>A</Text>;
+          //return <View><Icon name='home'/></View>
+        },
+        tabBarActiveTintColor: 'blue',
+        tabBarInactiveTintColor: 'gray',
+        tabBarActiveBackgroundColor: '#96d483',
+        tabBarInactiveBackgroundColor: '#d8dbf2',
+      })}>
+      <Tab.Screen
+        name="Home"
+        component={DrawerNavigatorRoutes1}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingScreenStack}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Tài khoản"
+        component={SettingScreenStack}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };

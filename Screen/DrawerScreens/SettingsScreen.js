@@ -20,7 +20,7 @@ const SettingsScreen = () => {
               fontSize: 20,
               textAlign: 'center',
               marginBottom: 16,
-              color: '#ff00ff'
+              color: '#ff00ff',
             }}>
             Example of Splash, Login and Sign Up in React Native
             {'\n\n'}
