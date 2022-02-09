@@ -2,11 +2,12 @@
 // https://aboutreact.com/react-native-login-and-signup/
 
 // Import React
-import React, { useState } from 'react';
+import React from 'react';
 
 // Import Navigators from React Navigation
 import {createStackNavigator} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Icon} from 'react-native-elements';
 // Import Screens
@@ -14,6 +15,9 @@ import HomeScreen from './DrawerScreens/HomeScreen';
 import SettingsScreen from './DrawerScreens/SettingsScreen';
 import CustomSidebarMenu from './Components/CustomSidebarMenu';
 import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
+import {Text, View} from 'react-native';
+import AccountTab from './TabScreen/AccountTab';
+import DrawerNavigationRoutes from './/DrawerNavigationRoutes'
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -69,35 +73,50 @@ const SettingScreenStack = ({navigation}) => {
   );
 };
 
+const Tab = createBottomTabNavigator();
 
-
-const DrawerNavigatorRoutes = (props) => {
-  
+const TabNavigatorRoutes = props => {
   return (
-    <Drawer.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      drawerContent={(props)=> <CustomSidebarMenu {...props}/>}>
-     
-      <Drawer.Screen
-        name="HomeScreenStack"
-        options={{
-          drawerLabel: 'Home Screen',
-          drawerLabelStyle: {color: 'yellow'},
-        }}
-        component={HomeScreenStack}
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          } else if (route.name === 'Tài khoản') {
+            iconName = focused ? 'man' : 'man-outline';
+          } else if (route.name === 'Settings') {
+            iconName = focused ? 'settings' : 'settings-outline';
+          } else {
+            iconName = focused ? 'settings' : 'settings-outline';
+          }         
+          return <Icon name={`md-${iconName}`} type="ionicon" color="black" />;       
+        },
+        tabBarActiveTintColor: 'blue',
+        tabBarInactiveTintColor: 'gray',
+        tabBarActiveBackgroundColor: '#96d483',
+        tabBarInactiveBackgroundColor: '#d8dbf2',
+      })}>
+        
+      <Tab.Screen
+        name="Home"
+        component={DrawerNavigationRoutes}
+        options={{headerShown: false}}
       />
-      <Drawer.Screen
-        name="SettingScreenStack"
-        options={{
-          drawerLabel: 'Setting Screen',
-          drawerLabelStyle: {color: 'yellow'},
-        }}
+      <Tab.Screen
+        name="Settings"
         component={SettingScreenStack}
+        options={{headerShown: false}}
       />
-    </Drawer.Navigator>
+      <Tab.Screen
+        name="Tài khoản"
+        component={AccountTab}
+        options={{headerShown: false}}
+      />
+    </Tab.Navigator>
   );
 };
 
-export default DrawerNavigatorRoutes;
+export default TabNavigatorRoutes;

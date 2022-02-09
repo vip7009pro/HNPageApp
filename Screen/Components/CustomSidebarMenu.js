@@ -2,7 +2,7 @@
 // https://aboutreact.com/react-native-login-and-signup/
 
 // Import React and Component
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Alert, StyleSheet} from 'react-native';
 
 import {
@@ -12,29 +12,48 @@ import {
 } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const CustomSidebarMenu = (props) => {
+/* let userid;
+
+getuserid(); */
+
+const CustomSidebarMenu = props => {
+
+  const [userid,setUserId] = useState('');
+  const [logotext,setLogoText]=useState('A');
+
+  const getuserid = () => {
+    AsyncStorage.getItem('user_id')
+    .then(value => {
+     // userid = JSON.parse(JSON.parse(value).userInfo)[0]; 
+     let result = JSON.parse(JSON.parse(value).userInfo)[0];
+      setUserId(result);  
+      setLogoText(result.FIRST_NAME.charAt(0));   
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  };
+
+  useEffect(()=>{
+    getuserid();
+  },[]);
   return (
     <View style={stylesSidebar.sideMenuContainer}>
       <View style={stylesSidebar.profileHeader}>
         <View style={stylesSidebar.profileHeaderPicCircle}>
-          <Text style={{fontSize: 25, color: '#307ecc'}}>
-            {'About React'.charAt(0)}
+          <Text style={{fontSize: 30, color: '#FF000F'}}>
+            {logotext}
           </Text>
         </View>
-        <Text style={stylesSidebar.profileHeaderText}>
-          Nguyen Van Hung
-        </Text>
+        <Text style={stylesSidebar.profileHeaderText}>{ userid.MIDLAST_NAME + " " + userid.FIRST_NAME }</Text>
       </View>
       <View style={stylesSidebar.profileHeaderLine} />
 
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
+
         <DrawerItem
-          label={({color}) => 
-            <Text style={{color: 'yellow'}}>
-              Logout
-            </Text>
-          }
+          label={({color}) => <Text style={{color: 'yellow'}}>Logout</Text>}
           onPress={() => {
             props.navigation.toggleDrawer();
             Alert.alert(
@@ -85,7 +104,7 @@ const stylesSidebar = StyleSheet.create({
     height: 60,
     borderRadius: 60 / 2,
     color: 'white',
-    backgroundColor: '#ffffff',
+    backgroundColor: 'lightgreen',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',

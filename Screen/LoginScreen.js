@@ -18,6 +18,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Loader from './Components/Loader';
+import { generalQuery } from '../Api/Api';
 
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState('');
@@ -28,9 +29,50 @@ const LoginScreen = ({navigation}) => {
   const passwordInputRef = createRef();
 
   const handleSubmitPress = () => {
-    AsyncStorage.setItem('user_id', 'hung');
+    /* AsyncStorage.setItem('user_id', 'hung');
     console.log('hung');
-    navigation.replace('DrawerNavigationRoutes');
+    navigation.replace('DrawerNavigationRoutes'); */
+
+    if (!userEmail) {
+      alert('Please fill Email');
+      return;
+    }
+    if (!userPassword) {
+      alert('Please fill Password');
+      return;
+    }
+    setLoading(true);
+    let submitData = {
+      user: userEmail,
+      pass: userPassword
+    };
+    generalQuery('login2', submitData)
+            .then(response => {
+                let kq = response.data.tk_status;
+                if (kq == 'ok') {
+                    let userData = {
+                        login_status: 'ok',
+                        userInfo: response.data.user_data
+                    };
+                    console.log(userData); 
+                    AsyncStorage.setItem('user_id', JSON.stringify(userData));
+                    navigation.replace('DrawerNavigationRoutes');
+                }
+                else {
+                    Alert.alert(
+                        "Thông báo",
+                        "Tên đăng nhập hoặc mật khẩu không đúng",
+                        [
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                        ]
+                    );
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                setLoading(false);
+                console.log(error);
+            })
 
     /*  setErrortext('');
     if (!userEmail) {

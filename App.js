@@ -13,8 +13,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from './Screen/SplashScreen';
 import LoginScreen from './Screen/LoginScreen';
 import RegisterScreen from './Screen/RegisterScreen';
-import DrawerNavigationRoutes from './Screen/DrawerNavigationRoutes';
 import { LogBox } from 'react-native';
+import TabNavigatorRoutes from './Screen/TabNavigatorRoutes';
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
 ]);
@@ -68,7 +68,7 @@ const App = () => {
         {/* Navigation Drawer as a landing page */}
         <Stack.Screen
           name="DrawerNavigationRoutes"
-          component={DrawerNavigationRoutes}
+          component={TabNavigatorRoutes}
           // Hiding header for Navigation Drawer
           options={{headerShown: false}}
         />
