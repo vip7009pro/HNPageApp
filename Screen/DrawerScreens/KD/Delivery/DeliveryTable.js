@@ -20,9 +20,10 @@ import {
   TextInput,
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
-import {generalQuery} from '../../Api/Api';
+
 import LinearGradient from 'react-native-linear-gradient';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { generalQuery } from '../../../../Api/Api';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +47,7 @@ const Item = ({CNDB_ENCODE}) => {
   </View>;
 };
 
-const HomeScreen = () => {
+const DeliveryTable = () => {
   const [emplList, setEmplList] = useState('');
   const [indicator, setIndicator] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -63,7 +64,7 @@ const HomeScreen = () => {
     let insertData = {SEARCHNAME: emplname};
     setIndicator(true);
     setRefreshing(true);
-    generalQuery('danhsachqc', insertData)
+    generalQuery('get_invoice', insertData)
       .then(response => {
         //console.log(response.data.data);
         setEmplList(response.data.data);
@@ -105,16 +106,8 @@ const HomeScreen = () => {
               textAlign: 'center',
               color: '#ff00ff',
             }}>
-            Danh sách nhân viên QC{'\n'}
-          </Text>
-          <Text
-            style={{
-              fontSize: 15,
-              textAlign: 'center',
-              color: '#ff00ff',
-            }}>
-            Tìm kiếm:
-          </Text>
+            Tra data kiểm{'\n'}
+          </Text>         
           <TextInput
             style={{
               height: 40,
@@ -129,9 +122,7 @@ const HomeScreen = () => {
             }}
             value={searchText}
             placeholder="Nhập tên nhân viên để tìm kiếm"></TextInput>
-          
-
-
+            
           <FlatList
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -153,7 +144,9 @@ const HomeScreen = () => {
             }}
             data={emplList}
             renderItem={({item}) => (
+              
               <View
+               
                 style={{
                   flexDirection: 'column',
                   margin: 8,
@@ -171,48 +164,30 @@ const HomeScreen = () => {
                 }}>
                 <Text
                   style={{color: '#142CF0', fontSize: 15, paddingRight: 20}}>
-                  <Text style={{fontWeight: 'bold'}}>Họ và tên:</Text>{' '}
-                  {item.MIDLAST_NAME} {item.FIRST_NAME}
+                  <Text style={{fontWeight: 'bold'}}>G_NAME:</Text>{' '}
+                  {item.G_NAME}
+                </Text>              
+
+                <Text
+                  style={{color: '#142CF0', fontSize: 15, paddingRight: 20}}>
+                  <Text style={{fontWeight: 'bold'}}>DELIVERY_DATE:</Text>
+                  {item.DELIVERY_DATE.slice(0,10)}
                 </Text>
 
                 <Text
                   style={{color: '#142CF0', fontSize: 15, paddingRight: 20}}>
-                  <Text style={{fontWeight: 'bold'}}>Địa chỉ:</Text>{' '}
-                  {item.ADD_VILLAGE}-{item.ADD_COMMUNE}-{item.ADD_DISTRICT}-
-                  {item.ADD_PROVINCE}
+                  <Text style={{fontWeight: 'bold'}}>DELIVERY_QTY:</Text>
+                  <Text style={{color:'green'}}>{item.DELIVERY_QTY}</Text>
                 </Text>
 
-                <Text
-                  style={{color: '#142CF0', fontSize: 15, paddingRight: 20}}>
-                  <Text style={{fontWeight: 'bold'}}>Birthday:</Text>
-                  {item.DOB.slice(0, 10)}
-                </Text>
-
-                <Text
-                  style={{color: '#142CF0', fontSize: 15, paddingRight: 20}}>
-                  <Text style={{fontWeight: 'bold'}}>Phone:</Text>
-                  {item.PHONE_NUMBER}
-                </Text>
-
-                <View style={{flexDirection: 'row', width: 80}}>
-                  <Button
-                    color="#16CC21"
-                    title="Làm"
-                    onPress={() => {
-                      lamButton(item.FIRST_NAME);
-                    }}
-                  />
-                  <Text> </Text>
-                  <Button color="red" title="Nghỉ" />
-                  <Text> </Text>
-                  <Button color="grey" title="Reset" />
-                </View>
+               
               </View>
             )}
           />
+          
         </View>
       </View>
     </SafeAreaView>
   );
 };
-export default HomeScreen;
+export default DeliveryTable;

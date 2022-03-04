@@ -140,7 +140,7 @@ const LoginScreen = ({navigation}) => {
               <Image
                 source={require('../Image/aboutreact.png')}
                 style={{
-                  width: '50%',
+                  width: '100%',
                   height: 100,
                   resizeMode: 'contain',
                   margin: 30,
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#307ecc',
+    backgroundColor: '#fff',
     alignContent: 'center',
   },
   SectionStyle: {
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     flex: 1,
-    color: 'white',
+    color: 'blue',
     paddingLeft: 15,
     paddingRight: 15,
     borderWidth: 1,

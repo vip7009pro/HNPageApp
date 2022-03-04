@@ -2,7 +2,7 @@
 // https://aboutreact.com/react-native-login-and-signup/
 
 // Import React
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 // Import Navigators from React Navigation
 import {createStackNavigator} from '@react-navigation/stack';
@@ -14,6 +14,9 @@ import HomeScreen from './DrawerScreens/HomeScreen';
 import SettingsScreen from './DrawerScreens/SettingsScreen';
 import CustomSidebarMenu from './Components/CustomSidebarMenu';
 import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
+import AccountTab from './TabScreen/AccountTab';
+import TableScreen from './DrawerScreens/TableScreen';
+import DeliverySearch from './DrawerScreens/KD/Delivery/DeliverySearch';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -69,17 +72,92 @@ const SettingScreenStack = ({navigation}) => {
   );
 };
 
+const TableScreenStack = ({navigation}) => {
+  return (
+    <Stack.Navigator
+      initialRouteName="TablesScreen"
+      screenOptions={{
+        headerLeft: () => (
+          <NavigationDrawerHeader navigationProps={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: '#3e9447', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        },
+      }}>
+      <Stack.Screen
+        name="TableScreen"
+        component={TableScreen}
+        options={{
+          title: 'TableScreen', //Set Header Title
+        }}
+      />
+      <Stack.Screen
+        name="DeliverySearch"
+        component={DeliverySearch}
+        options={{
+          title: 'DeliverySearch', //Set Header Title
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 
-const DrawerNavigatorRoutes = (props) => {
-  
+const KDScreenStack = ({navigation}) => {
+  return (
+    <Stack.Navigator
+      initialRouteName="DeliverySearchForm"
+      screenOptions={{
+        headerLeft: () => (
+          <NavigationDrawerHeader navigationProps={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: '#3e9447', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        },
+      }}>
+        <Stack.Screen
+        name="DeliverySearchForm"
+        component={DeliverySearch}
+        options={{
+          title: 'Tìm kiếm (Kinh Doanh)', //Set Header Title
+        }}
+      />
+
+      <Stack.Screen
+        name="TableScreen"
+        component={TableScreen}
+        options={{
+          title: 'TableScreen', //Set Header Title
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const DrawerNavigatorRoutes = props => {
   return (
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      drawerContent={(props)=> <CustomSidebarMenu {...props}/>}>
-     
+      drawerContent={props => <CustomSidebarMenu {...props} />}>
+      <Drawer.Screen
+        name="KDScreenStack"
+        options={{
+          drawerLabel: 'Phòng Kinh Doanh',
+          drawerLabelStyle: {color: 'yellow'},
+        }}
+        component={KDScreenStack}
+      />
+
       <Drawer.Screen
         name="HomeScreenStack"
         options={{
@@ -95,6 +173,15 @@ const DrawerNavigatorRoutes = (props) => {
           drawerLabelStyle: {color: 'yellow'},
         }}
         component={SettingScreenStack}
+      />
+
+      <Drawer.Screen
+        name="TableScreenStack"
+        options={{
+          drawerLabel: 'Table Screen',
+          drawerLabelStyle: {color: 'yellow'},
+        }}
+        component={TableScreenStack}
       />
     </Drawer.Navigator>
   );

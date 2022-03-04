@@ -12,7 +12,6 @@ export default function AccountTab() {
             return '2021-12-16';
         }
     }
-
     const getuserid = () => {
         AsyncStorage.getItem('user_id')
         .then(value => {
@@ -68,7 +67,7 @@ export default function AccountTab() {
               Chức vụ: {userid.JOB_NAME}
           </Text>
       </View>
-  );userid
+  );
 }
 const accountStyle = StyleSheet.create({
     sideMenuContainer: {
