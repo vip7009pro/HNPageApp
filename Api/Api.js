@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Alert } from "react-native";
 axios.defaults.withCredentials = true;
-const API_URL = "http://14.160.33.94:100/api";
+const API_URL = "http://14.160.33.94:3020/api";
 
 export function login(user, pass) {
     axios.post(API_URL, {

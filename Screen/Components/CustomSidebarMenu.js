@@ -45,7 +45,8 @@ const CustomSidebarMenu = props => {
             {logotext}
           </Text>
         </View>
-        <Text style={stylesSidebar.profileHeaderText}>{ userid.MIDLAST_NAME + " " + userid.FIRST_NAME }</Text>
+        <Text style={stylesSidebar.profileHeaderText}>{ userid.MIDLAST_NAME + " " + userid.FIRST_NAME } Version 9.8</Text>
+        
       </View>
       <View style={stylesSidebar.profileHeaderLine} />
 

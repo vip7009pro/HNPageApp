@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CMS APP</string>
+    <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
+    <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">M_ce-5s86l0KVw1kUw0Y3dIRubY68gj3O4YPA</string>
 </resources>
+

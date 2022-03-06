@@ -3,7 +3,7 @@
 import 'react-native-gesture-handler';
 
 // Import React and Component
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Import Navigators from React Navigation
 import {NavigationContainer} from '@react-navigation/native';
@@ -15,10 +15,12 @@ import LoginScreen from './Screen/LoginScreen';
 import RegisterScreen from './Screen/RegisterScreen';
 import { LogBox } from 'react-native';
 import TabNavigatorRoutes from './Screen/TabNavigatorRoutes';
+import codePush from "react-native-code-push";
+
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
 ]);
-
+let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
 const Stack = createStackNavigator();
 
 const Auth = () => {
@@ -49,6 +51,13 @@ const Auth = () => {
 };
 
 const App = () => {
+  useEffect(()=>{
+    codePush.sync({
+      updateDialog: true,
+      installMode: codePush.InstallMode.IMMEDIATE
+  });
+
+  },[]);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">
@@ -77,4 +86,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default codePush(codePushOptions)(App);
