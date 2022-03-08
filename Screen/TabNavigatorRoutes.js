@@ -96,8 +96,8 @@ const TabNavigatorRoutes = props => {
         },
         tabBarActiveTintColor: 'blue',
         tabBarInactiveTintColor: 'gray',
-        tabBarActiveBackgroundColor: '#96d483',
-        tabBarInactiveBackgroundColor: '#d8dbf2',
+        tabBarActiveBackgroundColor: '#2FABF1',
+        tabBarInactiveBackgroundColor: '#fff',
       })}>
         
       <Tab.Screen

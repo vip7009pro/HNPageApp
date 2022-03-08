@@ -17,6 +17,7 @@ import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
 import AccountTab from './TabScreen/AccountTab';
 import TableScreen from './DrawerScreens/TableScreen';
 import DeliverySearch from './DrawerScreens/KD/Delivery/DeliverySearch';
+import DeliveryTable from './DrawerScreens/KD/Delivery/DeliveryTable';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -81,7 +82,7 @@ const TableScreenStack = ({navigation}) => {
           <NavigationDrawerHeader navigationProps={navigation} />
         ),
         headerStyle: {
-          backgroundColor: '#3e9447', //Set Header color
+          backgroundColor: '#2FABF1', //Set Header color
         },
         headerTintColor: '#fff', //Set Header text color
         headerTitleStyle: {
@@ -106,7 +107,6 @@ const TableScreenStack = ({navigation}) => {
   );
 };
 
-
 const KDScreenStack = ({navigation}) => {
   return (
     <Stack.Navigator
@@ -116,7 +116,7 @@ const KDScreenStack = ({navigation}) => {
           <NavigationDrawerHeader navigationProps={navigation} />
         ),
         headerStyle: {
-          backgroundColor: '#3e9447', //Set Header color
+          backgroundColor: '#2FABF1', //Set Header color
         },
         headerTintColor: '#fff', //Set Header text color
         headerTitleStyle: {
@@ -127,7 +127,7 @@ const KDScreenStack = ({navigation}) => {
         name="DeliverySearchForm"
         component={DeliverySearch}
         options={{
-          title: 'Tìm kiếm (Kinh Doanh)', //Set Header Title
+          title: 'Tìm kiếm', //Set Header Title
         }}
       />
 
@@ -135,7 +135,7 @@ const KDScreenStack = ({navigation}) => {
         name="TableScreen"
         component={TableScreen}
         options={{
-          title: 'TableScreen', //Set Header Title
+          title: 'Kết quả truy vấn', //Set Header Title
         }}
       />
     </Stack.Navigator>
@@ -173,16 +173,7 @@ const DrawerNavigatorRoutes = props => {
           drawerLabelStyle: {color: 'yellow'},
         }}
         component={SettingScreenStack}
-      />
-
-      <Drawer.Screen
-        name="TableScreenStack"
-        options={{
-          drawerLabel: 'Table Screen',
-          drawerLabelStyle: {color: 'yellow'},
-        }}
-        component={TableScreenStack}
-      />
+      />     
     </Drawer.Navigator>
   );
 };
