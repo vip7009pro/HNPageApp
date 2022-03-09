@@ -22,7 +22,15 @@ import {
 import {ListItem} from 'react-native-elements';
 import {generalQuery} from '../../Api/Api';
 import LinearGradient from 'react-native-linear-gradient';
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+  Cols,
+  Cell,
+} from 'react-native-table-component';
 
 const styles = StyleSheet.create({
   container: {
@@ -129,9 +137,6 @@ const HomeScreen = () => {
             }}
             value={searchText}
             placeholder="Nhập tên nhân viên để tìm kiếm"></TextInput>
-          
-
-
           <FlatList
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

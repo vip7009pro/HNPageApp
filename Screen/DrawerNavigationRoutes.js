@@ -18,6 +18,7 @@ import AccountTab from './TabScreen/AccountTab';
 import TableScreen from './DrawerScreens/TableScreen';
 import DeliverySearch from './DrawerScreens/KD/Delivery/DeliverySearch';
 import DeliveryTable from './DrawerScreens/KD/Delivery/DeliveryTable';
+import KDHome from './DrawerScreens/KD/KDHome';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -110,7 +111,7 @@ const TableScreenStack = ({navigation}) => {
 const KDScreenStack = ({navigation}) => {
   return (
     <Stack.Navigator
-      initialRouteName="DeliverySearchForm"
+      initialRouteName="KDHome"
       screenOptions={{
         headerLeft: () => (
           <NavigationDrawerHeader navigationProps={navigation} />
@@ -123,7 +124,15 @@ const KDScreenStack = ({navigation}) => {
           fontWeight: 'bold', //Set Header text style
         },
       }}>
-        <Stack.Screen
+      <Stack.Screen
+        name="KDHome"
+        component={KDHome}
+        options={{
+          title: 'Phòng Kinh Doanh', //Set Header Title
+        }}
+      />
+
+      <Stack.Screen
         name="DeliverySearchForm"
         component={DeliverySearch}
         options={{

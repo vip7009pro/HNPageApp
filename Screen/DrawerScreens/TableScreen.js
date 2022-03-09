@@ -133,7 +133,9 @@ const TableScreen = ({route, navigation}) => {
     getEmplList(receiveParams);
   }, []);
 
-  const sumaryRenderer = () => (
+
+
+  const sumaryRenderer_invoice = () => (
     <View>
       <Text style={{fontSize: 20, fontWeight: 'bold', color: 'blue'}}>
         Total Qty: {numberWithCommas(sumqty)} EA
@@ -143,7 +145,7 @@ const TableScreen = ({route, navigation}) => {
       </Text>
     </View>
   );
-  const headerRenderer = () => (
+  const headerRenderer_invoice = () => (
     <View
       style={{
         flexDirection: 'row',
@@ -157,6 +159,9 @@ const TableScreen = ({route, navigation}) => {
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
         Ngày giao
       </Text>
+      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>
+        Số PO
+      </Text>     
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
         Số lượng giao
       </Text>
@@ -166,10 +171,16 @@ const TableScreen = ({route, navigation}) => {
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
         Thành tiền
       </Text>
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Phân loại
+      </Text>
+      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>
+        PIC
+      </Text>
     </View>
   );
 
-  const ItemRenderer = ({item, index}) => (
+  const ItemRenderer_invoice = ({item, index}) => (
     <View
       style={[
         styles.flatlist_item_format,
@@ -196,7 +207,11 @@ const TableScreen = ({route, navigation}) => {
       <Text style={{fontWeight: 'bold', width: 100, color: 'grey'}}>
         {item.DELIVERY_DATE.slice(0, 10)}
       </Text>
-
+      <Text style={{color: '#039E05', fontSize: 15, width: 150}}>
+        <Text style={{fontWeight: 'bold'}}>
+          {item.PO_NO}
+        </Text>
+      </Text>
       <Text style={{color: '#8C12FE', fontSize: 15, width: 100}}>
         <Text style={{fontWeight: 'bold'}}>
           {numberWithCommas(item.DELIVERY_QTY)}
@@ -210,23 +225,33 @@ const TableScreen = ({route, navigation}) => {
           {currencyFormat(item.DELIVERED_AMOUNT)}
         </Text>
       </Text>
+      <Text style={{color: '#039E05', fontSize: 15, width: 100}}>
+        <Text style={{fontWeight: 'bold'}}>
+          {item.PROD_TYPE}
+        </Text>
+      </Text>
+      <Text style={{color: '#039E05', fontSize: 15, width: 150}}>
+        <Text style={{fontWeight: 'bold'}}>
+          {item.EMPL_NAME}
+        </Text>
+      </Text>
     </View>
   );
 
   return (
     <SafeAreaView style={{flex: 1}}>
       {indicator && <ActivityIndicator size="large" color="#00ff00" />}
-      {sumaryRenderer()}
+      {sumaryRenderer_invoice()}
       <ScrollView horizontal={true}>
         <View style={{flex: 1}}>
-          {headerRenderer()}
+          {headerRenderer_invoice()}
           <FlatList
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
             style={styles.flatlist_format}
             data={emplList}
-            renderItem={ItemRenderer}
+            renderItem={ItemRenderer_invoice}
           />
         </View>
       </ScrollView>

@@ -20,13 +20,32 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from 'react-native';
-import {ListItem} from 'react-native-elements';
 
 import LinearGradient from 'react-native-linear-gradient';
-import { generalQuery } from '../../../../Api/Api';
+import {generalQuery} from '../../../../Api/Api';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
-import style from 'react-native-datepicker/style';
+import DropDownPicker from 'react-native-dropdown-picker';
+import CheckBox from '@react-native-community/checkbox';
+
+const PRODUCT_TYPE = [
+  {
+    label: 'USA',
+    value: 'usa',
+    icon: () => <Icon name="flag" size={18} color="#900" />,
+    hidden: true,
+  },
+  {
+    label: 'UK',
+    value: 'uk',
+    icon: () => <Icon name="flag" size={18} color="#900" />,
+  },
+  {
+    label: 'France',
+    value: 'france',
+    icon: () => <Icon name="flag" size={18} color="#900" />,
+  },
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -75,15 +94,17 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
-  labeltext:{
+  labeltext: {
     marginLeft: 10,
-    color:'black',
-    fontWeight: 'bold'
-  }
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  checkbox: {
+    alignSelf: 'center',
+  },
 });
 
-
-const DeliverySearch = ({navigation}) => {
+const DeliverySearch = ({route, navigation}) => {
   const [emplList, setEmplList] = useState('');
   const [indicator, setIndicator] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -91,39 +112,40 @@ const DeliverySearch = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [dateoption,setdateoption] = useState(1);
-  const [frm_date,setfrm_date]= useState(moment().format('YYYY-MM-DD'));
-  const [to_date,setto_date]= useState(moment().format('YYYY-MM-DD'));
-  const [g_code, setG_CODE]= useState('');
-  const [g_name, setG_NAME]= useState('');
-  const [cust_name, setCust_Name]= useState('');
+  const [dateoption, setdateoption] = useState(1);
+  const [frm_date, setfrm_date] = useState(moment().format('YYYY-MM-DD'));
+  const [to_date, setto_date] = useState(moment().format('YYYY-MM-DD'));
+  const [g_code, setG_CODE] = useState('');
+  const [g_name, setG_NAME] = useState('');
+  const [cust_name, setCust_Name] = useState('');
+  const [empl_name, setempl_name] = useState('');
+  const [prod_type, setprod_type] = useState('');
+  const [po_no, setpo_no] = useState('');
+  const [alltime, setalltime] = useState(false);
 
+  const options = route.params;
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(false);
     setDate(currentDate);
-    if(dateoption == 1)
-    {
+    if (dateoption == 1) {
       setfrm_date(moment(currentDate).format('YYYY-MM-DD'));
-    }
-    else
-    {
+    } else {
       setto_date(moment(currentDate).format('YYYY-MM-DD'));
     }
   };
 
-  const showMode = (currentMode) => {
+  const showMode = currentMode => {
     setShow(true);
     setMode(currentMode);
   };
 
-  const showDatepicker = (option) => {
+  const showDatepicker = option => {
     showMode('date');
     setdateoption(option);
   };
 
- 
   const getEmplList = emplname => {
     let insertData = {SEARCHNAME: emplname};
     setIndicator(true);
@@ -150,83 +172,145 @@ const DeliverySearch = ({navigation}) => {
     // getEmplList();
   }, []);
 
+  const gradientHeight = 700;
+  const gradientBackground = 'green';
+  const data = Array.from({length: gradientHeight});
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <Text style={styles.labeltext}>Code CMS</Text>
-        <TextInput
-          style={styles.input_text}
-          onChangeText={text => {
-            setG_CODE(text);
-          }}
-          placeholder="G_CODE"
-          placeholderTextColor={'grey'}></TextInput>
-        <Text style={styles.labeltext}>Khách hàng</Text>
-        <TextInput
-          style={styles.input_text}
-          onChangeText={text => {
-            setCust_Name(text);
-          }}
-          placeholder="Customer"
-          placeholderTextColor={'grey'}></TextInput>
-        <Text style={styles.labeltext}>Code Kinh Doanh</Text>
-        <TextInput
-          style={styles.input_text}
-          onChangeText={text => {
-            setG_NAME(text);
-          }}
-          placeholder="Code KD"
-          placeholderTextColor={'grey'}></TextInput>
-        <View>
-          <View>
-            <Text style={styles.labeltext}>Từ ngày</Text>
-            <TextInput
-              style={styles.input_text}
-              onChangeText={() => {
-                console.log('a');
-              }}
-              onFocus={() => {
-                showDatepicker(1);
-              }}
-              value={frm_date.toString()}
-              placeholder="Từ ngày"
-              placeholderTextColor={'grey'}></TextInput>
-            <Text style={styles.labeltext}>Đến ngày</Text>
-            <TextInput
-              style={styles.input_text}
-              onChangeText={() => {
-                console.log('a');
-              }}
-              onFocus={() => {
-                showDatepicker(2);
-              }}
-              value={to_date.toString()}
-              placeholder="Tới ngày"
-              placeholderTextColor={'grey'}></TextInput>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <Pressable
-              onPress={() => {
-                navigation.push('TableScreen', {
-                  G_CODE: g_code,
-                  G_NAME: g_name,
-                  CUST_NAME: cust_name,
-                  FROM_DATE: frm_date,
-                  TO_DATE: to_date,
-                });
-              }}
-              style={({pressed}) => [
-                {
-                  backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
-                },
-                styles.pressableBT,
-              ]}>
-              <Text style={{color: 'black', fontSize: 20}}>Tra</Text>
-            </Pressable>
-          </View>
+    <View
+      style={{flex: 1, justifyContent: 'center', backgroundColor: '#9E58F7'}}>
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{alignItems: 'center', marginTop: 5}}>
+          <Button
+            onPress={() => {
+              navigation.push('TableScreen', {
+                OPTIONS: options.options,
+                G_CODE: g_code,
+                G_NAME: g_name,
+                CUST_NAME: cust_name,
+                FROM_DATE: frm_date,
+                TO_DATE: to_date,
+                EMPL_NAME: empl_name,
+                PROD_TYPE: prod_type,
+                PO_NO: po_no,
+                ALLTIME: alltime,
+              });
+            }}
+            title="Tra data"
+            color={'#49C016'}></Button>
+          {/* <Pressable
+   onPress={() => {
+     navigation.push('TableScreen', {
+       OPTIONS: options.options,
+       G_CODE: g_code,
+       G_NAME: g_name,
+       CUST_NAME: cust_name,
+       FROM_DATE: frm_date,
+       TO_DATE: to_date,
+       EMPL_NAME: empl_name,
+       PROD_TYPE: prod_type,
+     });
+   }}
+   style={({pressed}) => [
+     {
+       backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+     },
+     styles.pressableBT,
+   ]}>
+   <Text style={{color: 'black', fontSize: 20}}>Tra</Text>
+ </Pressable> */}
         </View>
+        <ScrollView>
+          <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
+            <View style={{width: '50%'}}>
+              <Text style={styles.labeltext}>Phân loại hàng</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={text => {
+                  setprod_type(text);
+                }}
+                placeholder="Loại hàng"
+                placeholderTextColor={'grey'}></TextInput>
 
+              <Text style={styles.labeltext}>Số PO</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={text => {
+                  setpo_no(text);
+                }}
+                placeholder="PO No"
+                placeholderTextColor={'grey'}></TextInput>
+
+              <Text style={styles.labeltext}>Từ ngày</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={() => {
+                  console.log('a');
+                }}
+                onFocus={() => {
+                  showDatepicker(1);
+                }}
+                value={frm_date.toString()}
+                placeholder="Từ ngày"
+                placeholderTextColor={'grey'}></TextInput>
+              <Text style={styles.labeltext}>Đến ngày</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={() => {
+                  console.log('a');
+                }}
+                onFocus={() => {
+                  showDatepicker(2);
+                }}
+                value={to_date.toString()}
+                placeholder="Tới ngày"
+                placeholderTextColor={'grey'}></TextInput>
+            </View>
+            <View  style={{width: '50%'}}>
+              <Text style={styles.labeltext}>Code CMS</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={text => {
+                  setG_CODE(text);
+                }}
+                placeholder="Code ERP CMS"
+                placeholderTextColor={'grey'}></TextInput>
+              <Text style={styles.labeltext}>Khách hàng</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={text => {
+                  setCust_Name(text);
+                }}
+                placeholder="Tên khách hàng"
+                placeholderTextColor={'grey'}></TextInput>
+              <Text style={styles.labeltext}>Code Kinh Doanh</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={text => {
+                  setG_NAME(text);
+                }}
+                placeholder="Code Kinh Doanh"
+                placeholderTextColor={'grey'}></TextInput>
+              <Text style={styles.labeltext}>PIC Kinh Doanh</Text>
+              <TextInput
+                style={styles.input_text}
+                onChangeText={text => {
+                  setempl_name(text);
+                }}
+                placeholder="Tên nhân viên kinh doanh"
+                placeholderTextColor={'grey'}></TextInput>
+            </View>
+          </View>
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <CheckBox
+              disabled={false}
+              value={alltime}
+              onValueChange={newValue => setalltime(newValue)}
+            />
+            <Text style={styles.labeltext}>All time</Text>
+          </View>
+        </ScrollView>
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -237,8 +321,8 @@ const DeliverySearch = ({navigation}) => {
             onChange={onChange}
           />
         )}
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 };
 export default DeliverySearch;
