@@ -19,6 +19,9 @@ import TableScreen from './DrawerScreens/TableScreen';
 import DeliverySearch from './DrawerScreens/KD/Delivery/DeliverySearch';
 import DeliveryTable from './DrawerScreens/KD/Delivery/DeliveryTable';
 import KDHome from './DrawerScreens/KD/KDHome';
+import InspectionHome from './DrawerScreens/INSPECTION/InspectionHome';
+import InOutSearch from './DrawerScreens/INSPECTION/InOutSearch/InOutSearch';
+import InOutTable from './DrawerScreens/INSPECTION/InOutSearch/InOutTable';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -151,6 +154,49 @@ const KDScreenStack = ({navigation}) => {
   );
 };
 
+const INSPECTIONScreenStack = ({navigation}) => {
+  return (
+    <Stack.Navigator
+      initialRouteName="InspectionHome"
+      screenOptions={{
+        headerLeft: () => (
+          <NavigationDrawerHeader navigationProps={navigation} />
+        ),
+        headerStyle: {
+          backgroundColor: '#2FABF1', //Set Header color
+        },
+        headerTintColor: '#fff', //Set Header text color
+        headerTitleStyle: {
+          fontWeight: 'bold', //Set Header text style
+        },
+      }}>
+      <Stack.Screen
+        name="InspectionHome"
+        component={InspectionHome}
+        options={{
+          title: 'Phòng Kiểm Tra', //Set Header Title
+        }}
+      />
+
+      <Stack.Screen
+        name="InOutSearchForm"
+        component={InOutSearch}
+        options={{
+          title: 'Tìm kiếm kiểm tra', //Set Header Title
+        }}
+      />
+
+      <Stack.Screen
+        name="InOutTable"
+        component={InOutTable}
+        options={{
+          title: 'Kết quả truy vấn', //Set Header Title
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const DrawerNavigatorRoutes = props => {
   return (
     <Drawer.Navigator
@@ -166,8 +212,17 @@ const DrawerNavigatorRoutes = props => {
         }}
         component={KDScreenStack}
       />
-
       <Drawer.Screen
+        name="INSPECTIONScreenStack"
+        options={{
+          drawerLabel: 'Phòng Kiểm Tra',
+          drawerLabelStyle: {color: 'yellow'},
+        }}
+        component={INSPECTIONScreenStack}
+      />
+
+
+  {/*     <Drawer.Screen
         name="HomeScreenStack"
         options={{
           drawerLabel: 'Home Screen',
@@ -182,7 +237,7 @@ const DrawerNavigatorRoutes = props => {
           drawerLabelStyle: {color: 'yellow'},
         }}
         component={SettingScreenStack}
-      />     
+      />    */}  
     </Drawer.Navigator>
   );
 };

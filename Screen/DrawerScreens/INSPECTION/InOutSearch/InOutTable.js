@@ -20,8 +20,9 @@ import {
   TextInput,
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
-import {generalQuery} from '../../Api/Api';
+
 import LinearGradient from 'react-native-linear-gradient';
+import { generalQuery } from '../../../../Api/Api';
 
 const styles = StyleSheet.create({
   container: {
@@ -84,7 +85,7 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-const TableScreen = ({route, navigation}) => {
+const InOutTable = ({route, navigation}) => {
   const [emplList, setEmplList] = useState('');
   const [indicator, setIndicator] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -421,4 +422,4 @@ const TableScreen = ({route, navigation}) => {
     </SafeAreaView>
   );
 };
-export default TableScreen;
+export default InOutTable;

@@ -105,11 +105,11 @@ const TabNavigatorRoutes = props => {
         component={DrawerNavigationRoutes}
         options={{headerShown: false}}
       />
-      <Tab.Screen
+     {/*  <Tab.Screen
         name="Settings"
         component={SettingScreenStack}
         options={{headerShown: false}}
-      />
+      /> */}
       <Tab.Screen
         name="Tài khoản"
         component={AccountTab}

@@ -28,25 +28,6 @@ import moment from 'moment';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CheckBox from '@react-native-community/checkbox';
 
-const PRODUCT_TYPE = [
-  {
-    label: 'USA',
-    value: 'usa',
-    icon: () => <Icon name="flag" size={18} color="#900" />,
-    hidden: true,
-  },
-  {
-    label: 'UK',
-    value: 'uk',
-    icon: () => <Icon name="flag" size={18} color="#900" />,
-  },
-  {
-    label: 'France',
-    value: 'france',
-    icon: () => <Icon name="flag" size={18} color="#900" />,
-  },
-];
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -96,7 +77,7 @@ const styles = StyleSheet.create({
   },
   labeltext: {
     marginLeft: 10,
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
   },
   checkbox: {
@@ -104,7 +85,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const DeliverySearch = ({route, navigation}) => {
+const InOutSearch = ({route, navigation}) => {
   const [emplList, setEmplList] = useState('');
   const [indicator, setIndicator] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -178,12 +159,12 @@ const DeliverySearch = ({route, navigation}) => {
 
   return (
     <View
-      style={{flex: 1, justifyContent: 'center', backgroundColor: '#9E58F7'}}>
+      style={{flex: 1, justifyContent: 'center', backgroundColor: '#C5F07B'}}>
       <SafeAreaView style={{flex: 1}}>
         <View style={{alignItems: 'center', marginTop: 5}}>
           <Button
             onPress={() => {
-              navigation.navigate('TableScreen', {
+              navigation.navigate('InOutTable', {
                 OPTIONS: options.options,
                 G_CODE: g_code,
                 G_NAME: g_name,
@@ -197,7 +178,7 @@ const DeliverySearch = ({route, navigation}) => {
               });
             }}
             title="Tra data"
-            color={'#49C016'}></Button>
+            color={'#0062EF'}></Button>
         </View>
         <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
@@ -211,13 +192,13 @@ const DeliverySearch = ({route, navigation}) => {
                 placeholder="Loại hàng"
                 placeholderTextColor={'grey'}></TextInput>
 
-              <Text style={styles.labeltext}>Số PO</Text>
+              <Text style={styles.labeltext}>Số YCSX</Text>
               <TextInput
                 style={styles.input_text}
                 onChangeText={text => {
                   setpo_no(text);
                 }}
-                placeholder="PO No"
+                placeholder="Số YCSX"
                 placeholderTextColor={'grey'}></TextInput>
 
               <Text style={styles.labeltext}>Từ ngày</Text>
@@ -304,4 +285,4 @@ const DeliverySearch = ({route, navigation}) => {
     </View>
   );
 };
-export default DeliverySearch;
+export default InOutSearch;

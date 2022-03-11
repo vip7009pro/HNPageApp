@@ -52,10 +52,10 @@ const Auth = () => {
 
 const App = () => {
   useEffect(()=>{
-   /*  codePush.sync({
+    codePush.sync({
       updateDialog: true,
       installMode: codePush.InstallMode.IMMEDIATE
-  }); */
+  });
 
   },[]);
   return (
