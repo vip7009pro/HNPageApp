@@ -48,7 +48,7 @@ const DATA = [
   },
   {
     title: 'Data nhật ký kiểm tra',
-    data: ['Nhập Nhật Ký Kiểm Tra', 'Tra Nhật Ký Kiểm Tra'],
+    data: ['Tra Nhật Ký Kiểm Tra'],
   },
 ];
 export default function InspectionHome({navigation}) {
@@ -56,59 +56,16 @@ export default function InspectionHome({navigation}) {
     <View style={styles.item}>
       <TouchableOpacity
         onPress={() => {
-         /*  switch (title) {
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-
-            case '':
-              navigation.push('InOutSearchForm', {
-                options: title,
-              });
-              break;
-          } */
-
-          navigation.push('InOutSearchForm', {
-            options: title,
-          });
+            if(title != 'Tra Nhật Ký Kiểm Tra')
+            {
+                navigation.push('InOutSearchForm', {
+                    options: title,
+                  });
+            }
+            else 
+            {
+                Alert.alert('Đang phát triển tính năng');
+            }         
         }}>
         <Text style={styles.title}>{title}</Text>
       </TouchableOpacity>

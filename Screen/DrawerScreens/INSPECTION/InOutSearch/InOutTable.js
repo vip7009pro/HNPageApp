@@ -2,6 +2,7 @@
 // https://aboutreact.com/react-native-login-and-signup/
 
 // Import React and Component
+import moment from 'moment';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   RefreshControl,
@@ -104,7 +105,7 @@ const InOutTable = ({route, navigation}) => {
   const getEmplList = searchData => {
     setIndicator(true);
     setRefreshing(true);
-    generalQuery('get_invoice', searchData)
+    generalQuery('get_inspection', searchData)
       .then(response => {
         if (response.data.status == 'NG') {
           setRefreshing(false);
@@ -119,21 +120,23 @@ const InOutTable = ({route, navigation}) => {
           let sumbalanceQty = 0;
           let sumbalanceAmount =0.0;
           
-          if (receiveParams.OPTIONS == 'Tra cứu PO') {
-            console.log('tinh po');
+          if (receiveParams.OPTIONS == 'Nhập Xuất Kiểm (YCSX)') {            
             for (let k = 0; k < response.data.data.length; k++) {
-              sumQty += response.data.data[k].PO_QTY;
-              sumAmount += response.data.data[k].PO_AMOUNT;
-              sumdeliQty += response.data.data[k].DELIVERY_QTY;
-              sumdeliAmount += response.data.data[k].DELIVERED_AMOUNT;
-              sumbalanceQty += response.data.data[k].PO_BALANCE_QTY;
-              sumbalanceAmount += response.data.data[k].PO_BALANCE_AMOUNT;
+              sumQty += response.data.data[k].LOT_TOTAL_INPUT_QTY_EA;             
+              sumdeliQty += response.data.data[k].LOT_TOTAL_OUTPUT_QTY_EA;             
             }
-          } else if (receiveParams.OPTIONS == 'Tra cứu invoice') {
-            console.log('tinh invoice');
+          } else if (receiveParams.OPTIONS == 'Nhập Kiểm (LOT)') {
+           
             for (let k = 0; k < response.data.data.length; k++) {
-              sumQty += response.data.data[k].DELIVERY_QTY;
-              sumAmount += response.data.data[k].DELIVERED_AMOUNT;
+              sumQty += response.data.data[k].INPUT_QTY_EA;
+             // sumAmount += response.data.data[k].DELIVERED_AMOUNT;
+            }
+          }               
+          else if (receiveParams.OPTIONS == 'Xuất Kiểm (LOT)') {
+            
+            for (let k = 0; k < response.data.data.length; k++) {
+              sumQty += response.data.data[k].OUTPUT_QTY_EA;
+              //sumAmount += response.data.data[k].DELIVERED_AMOUNT;
             }
           }               
           
@@ -165,24 +168,14 @@ const InOutTable = ({route, navigation}) => {
     getEmplList(receiveParams);
   }, []);
 
-  const sumaryRenderer_invoice = () => (
+  const sumaryRenderer_inspect_input = () => (
     <View>
       <Text style={{fontSize: 20, fontWeight: 'bold', color: 'blue'}}>
-        Total Qty: {numberWithCommas(sumqty)} EA
-      </Text>
-      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
-        Total Amount: {currencyFormat(sumamount)}
-      </Text>
-      {/* <Button
-        onPress={() => {
-          navigation.replace('DeliverySearchForm');
-        }}
-        title="Back"
-        color={'green'}
-      /> */}
+        Total Input QTY: {numberWithCommas(sumqty)} EA
+      </Text>      
     </View>
   );
-  const headerRenderer_invoice = () => (
+  const headerRenderer_inspect_input = () => (
     <View
       style={{
         flexDirection: 'row',
@@ -194,26 +187,24 @@ const InOutTable = ({route, navigation}) => {
         Code hàng
       </Text>
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        Ngày giao
+        Số YCSX
       </Text>
-      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>Số PO</Text>
+      <Text style={{color: 'blue', width: 200, fontWeight: 'bold'}}>
+        Thời gian nhập kiểm
+      </Text>     
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        Số lượng giao
+        Số lượng nhập
       </Text>
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        Đơn giá
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        Thành tiền
-      </Text>
+        Nhà máy
+      </Text>     
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
         Phân loại
       </Text>
       <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>PIC</Text>
     </View>
   );
-
-  const ItemRenderer_invoice = ({item, index}) => (
+  const ItemRenderer_inspect_input = ({item, index}) => (
     <View
       style={[
         styles.flatlist_item_format,
@@ -237,63 +228,37 @@ const InOutTable = ({route, navigation}) => {
         }}>
         {item.G_NAME}
       </Text>
-      <Text style={{fontWeight: 'bold', width: 100, color: 'grey'}}>
-        {item.DELIVERY_DATE.slice(0, 10)}
+      <Text style={{fontWeight: 'bold', width: 100, color: 'green'}}>
+        {item.PROD_REQUEST_NO}
       </Text>
-      <Text style={{color: '#039E05', fontSize: 15, width: 150}}>
-        <Text style={{fontWeight: 'bold'}}>{item.PO_NO}</Text>
-      </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100}}>
-        <Text style={{fontWeight: 'bold'}}>
-          {numberWithCommas(item.DELIVERY_QTY)}
-        </Text>
+      <Text style={{fontWeight: 'bold', width: 200, color: 'grey'}}>
+        {item.INPUT_DATETIME.slice(0,10) +  ' ' + item.INPUT_DATETIME.slice(11,18)}       
+      </Text>     
+      <Text style={{color: '#8C12FE', fontSize: 15, width: 100, fontWeight: 'bold'}}>        
+          {numberWithCommas(item.INPUT_QTY_EA)}       
       </Text>
       <Text style={{color: '#EF29F2', fontSize: 15, width: 100}}>
-        <Text style={{fontWeight: 'bold'}}>{item.PROD_PRICE}</Text>
-      </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100}}>
-        <Text style={{fontWeight: 'bold'}}>
-          {currencyFormat(item.DELIVERED_AMOUNT)}
-        </Text>
-      </Text>
-      <Text style={{color: '#039E05', fontSize: 15, width: 100}}>
+        <Text style={{fontWeight: 'bold'}}>{item.REMARK}</Text>
+      </Text>     
+      <Text style={{color: '#3B2CEE', fontSize: 15, width: 100}}>
         <Text style={{fontWeight: 'bold'}}>{item.PROD_TYPE}</Text>
       </Text>
-      <Text style={{color: '#039E05', fontSize: 15, width: 150}}>
+      <Text style={{color: '#28B4ED', fontSize: 15, width: 150}}>
         <Text style={{fontWeight: 'bold'}}>{item.EMPL_NAME}</Text>
       </Text>
     </View>
   );
 
-  const sumaryRenderer_po = () => (
-    <View style={{ flexDirection:'row', alignContent:'center', marginTop: 10}}>
-      <View style={styles.summaryBox}>
-        <Text style={{fontSize: 15, fontWeight: 'bold', color: 'blue'}}>
-          {numberWithCommas(sumqty)} EA
-        </Text>
-        <Text style={{fontSize: 15, fontWeight: 'bold', color: 'blue'}}>
-         {currencyFormat(sumamount)}
-        </Text>
-      </View>
-      <View style={styles.summaryBox}>
-        <Text style={{fontSize: 15, fontWeight: 'bold', color: 'green'}}>
-         {numberWithCommas(sumdeliqty)} EA
-        </Text>
-        <Text style={{fontSize: 15, fontWeight: 'bold', color: 'green'}}>
-         {currencyFormat(sumdeliamount)}
-        </Text>
-      </View>
-      <View style={styles.summaryBox}>
-        <Text style={{fontSize: 15, fontWeight: 'bold', color: 'red'}}>
-          {numberWithCommas(sumbalanceqty)} EA
-        </Text>
-        <Text style={{fontSize: 15, fontWeight: 'bold', color: 'red'}}>
-         {currencyFormat(sumbalanceamount)}
-        </Text>
-      </View>
+
+
+  const sumaryRenderer_inspect_output = () => (
+    <View>
+      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
+        Total Output QTY: {numberWithCommas(sumqty)} EA
+      </Text>      
     </View>
   );
-  const headerRenderer_po = () => (
+  const headerRenderer_inspect_output = () => (
     <View
       style={{
         flexDirection: 'row',
@@ -305,41 +270,26 @@ const InOutTable = ({route, navigation}) => {
         Code hàng
       </Text>
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        PO Date
+        Số YCSX
+      </Text>
+      <Text style={{color: 'blue', width: 200, fontWeight: 'bold'}}>
+        Thời gian xuất kiểm
+      </Text>     
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Số lượng xuất
       </Text>
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        RD Date
-      </Text>
-      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>Số PO</Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        Đơn giá
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        PO QTY
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        DELIVERY QTY
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        BALANCE QTY
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        PO AMOUNT
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        DELIVERY AMOUNT
-      </Text>
-      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
-        BALANCE AMOUNT
-      </Text>
+        Nhà máy
+      </Text>     
       <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
         Phân loại
       </Text>
       <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>PIC</Text>
+      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>Ca làm việc</Text>
+      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>Ngày làm việc</Text>
     </View>
   );
-
-  const ItemRenderer_po = ({item, index}) => (
+  const ItemRenderer_inspect_output = ({item, index}) => (
     <View
       style={[
         styles.flatlist_item_format,
@@ -363,41 +313,126 @@ const InOutTable = ({route, navigation}) => {
         }}>
         {item.G_NAME}
       </Text>
-      <Text style={{fontWeight: 'bold', width: 100, color: 'grey'}}>
-        {item.PO_DATE.slice(0, 10)}
+      <Text style={{fontWeight: 'bold', width: 100, color: 'green'}}>
+        {item.PROD_REQUEST_NO}
       </Text>
-      <Text style={{fontWeight: 'bold', width: 100, color: 'grey'}}>
-        {item.RD_DATE.slice(0, 10)}
+      <Text style={{fontWeight: 'bold', width: 200, color: 'grey'}}>        
+        {item.OUTPUT_DATETIME.slice(0,10) +  ' ' + item.OUTPUT_DATETIME.slice(11,18)}  
+      </Text>     
+      <Text style={{color: '#8C12FE', fontSize: 15, width: 100, fontWeight: 'bold'}}>        
+          {numberWithCommas(item.OUTPUT_QTY_EA)}       
       </Text>
-      <Text style={{color: '#039E05', fontSize: 15, width: 150, fontWeight: 'bold'}}>
-        {item.PO_NO}
+      <Text style={{color: '#EF29F2', fontSize: 15, width: 100}}>
+        <Text style={{fontWeight: 'bold'}}>{item.REMARK}</Text>
+      </Text>     
+      <Text style={{color: '#3B2CEE', fontSize: 15, width: 100}}>
+        <Text style={{fontWeight: 'bold'}}>{item.PROD_TYPE}</Text>
       </Text>
-      <Text style={{color: '#EF29F2', fontSize: 15, width: 100,fontWeight: 'bold'}}>
-       {item.PROD_PRICE}
-      </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100,fontWeight: 'bold'}}>       
-        {numberWithCommas(item.PO_QTY)}       
-      </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100,fontWeight: 'bold'}}>       
-        {numberWithCommas(item.DELIVERY_QTY)}       
-      </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100,fontWeight: 'bold'}}>       
-        {numberWithCommas(item.PO_BALANCE_QTY)}       
-      </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100,fontWeight: 'bold'}}>        
-          {currencyFormat(item.PO_AMOUNT)}       
-      </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100,fontWeight: 'bold'}}>        
-          {currencyFormat(item.DELIVERED_AMOUNT)}       
-      </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100,fontWeight: 'bold'}}>        
-          {currencyFormat(item.PO_BALANCE_AMOUNT)}       
-      </Text>
-      <Text style={{color: '#F36425', fontSize: 15, width: 100,fontWeight: 'bold'}}>
-       {item.PROD_TYPE}
-      </Text>
-      <Text style={{color: '#1FA5C6', fontSize: 15, width: 150}}>
+      <Text style={{color: '#28B4ED', fontSize: 15, width: 150}}>
         <Text style={{fontWeight: 'bold'}}>{item.EMPL_NAME}</Text>
+      </Text>
+      <Text style={{color: '#0CC156', fontSize: 15, width: 150}}>
+        <Text style={{fontWeight: 'bold'}}>{item.CA_LAM_VIEC}</Text>
+      </Text>
+      <Text style={{color: '#F9A822', fontSize: 15, width: 150}}>
+        <Text style={{fontWeight: 'bold'}}>{moment(item.NGAY_LAM_VIEC).format("YYYY-MM-DD")}</Text>
+      </Text>
+    </View>
+  );
+
+
+  const sumaryRenderer_inspect_inoutycsx = () => (
+    <View>
+      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'blue'}}>
+        Total Input QTY: {numberWithCommas(sumqty)} EA
+      </Text>      
+      <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
+        Total Output QTY: {numberWithCommas(sumdeliqty)} EA
+      </Text>  
+    </View>
+  );
+  const headerRenderer_inspect_inoutycsx = () => (
+    <View
+      style={{
+        flexDirection: 'row',
+      }}>
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Khách hàng
+      </Text>
+      <Text style={{color: 'blue', width: 200, fontWeight: 'bold'}}>
+        Code hàng
+      </Text>
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Số YCSX
+      </Text>
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Số lượng YC
+      </Text>
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Tổng nhập
+      </Text>
+      <Text style={{color: 'blue', width: 100, fontWeight: 'bold'}}>
+        Tổng xuất
+      </Text>
+      <Text style={{color: 'blue', width: 150, fontWeight: 'bold'}}>PIC</Text>
+    </View>
+  );
+  const ItemRenderer_inspect_inoutycsx = ({item, index}) => (
+    <View
+      style={[
+        styles.flatlist_item_format,
+        {
+          borderLeftWidth: 1,
+          borderLeftColor: 'black',
+          borderRightWidth: 1,
+          borderRightColor: 'black',
+        },
+      ]}>
+      <Text style={{fontWeight: 'bold', color: 'red'}}>{index + 1}.</Text>
+      <Text style={{fontWeight: 'bold', width: 80, color: 'green'}}>
+        {item.CUST_NAME_KD}
+      </Text>
+      <Text
+        style={{
+          fontWeight: 'bold',
+          color: '#142CF0',
+          fontSize: 15,
+          width: 200,
+        }}>
+        {item.G_NAME}
+      </Text>
+      <Text style={{fontWeight: 'bold', width: 100, color: 'green'}}>
+        {item.PROD_REQUEST_NO}
+      </Text>
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.PROD_REQUEST_QTY)}
+      </Text>
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.LOT_TOTAL_INPUT_QTY_EA)}
+      </Text>
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.LOT_TOTAL_OUTPUT_QTY_EA)}
+      </Text>
+      <Text style={{color: '#28B4ED', fontSize: 15, width: 150}}>
+        <Text style={{fontWeight: 'bold'}}>{item.PIC_KD}</Text>
       </Text>
     </View>
   );
@@ -405,17 +440,17 @@ const InOutTable = ({route, navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       {indicator && <ActivityIndicator size="large" color="#00ff00" />}
-      {receiveParams.OPTIONS=='Tra cứu PO'? sumaryRenderer_po() : receiveParams.OPTIONS=='Tra cứu invoice'? sumaryRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu kế hoạch'? sumaryRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu FCST'? sumaryRenderer_invoice() :receiveParams.OPTIONS=='Tra cứu YCSX'?  sumaryRenderer_invoice() : sumaryRenderer_invoice()}
+      {receiveParams.OPTIONS=='Xuất Kiểm (LOT)'? sumaryRenderer_inspect_output() : receiveParams.OPTIONS=='Nhập Kiểm (LOT)'? sumaryRenderer_inspect_input(): receiveParams.OPTIONS=='Nhập Xuất Kiểm (YCSX)'? sumaryRenderer_inspect_inoutycsx(): receiveParams.OPTIONS=='Tra cứu FCST'? sumaryRenderer_inspect_input() :receiveParams.OPTIONS=='Tra cứu YCSX'?  sumaryRenderer_inspect_input() : sumaryRenderer_inspect_input()}
       <ScrollView horizontal={true}>
         <View style={{flex: 1}}>
-          {receiveParams.OPTIONS=='Tra cứu PO'? headerRenderer_po() : receiveParams.OPTIONS=='Tra cứu invoice'? headerRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu kế hoạch'? headerRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu FCST'? headerRenderer_invoice() :receiveParams.OPTIONS=='Tra cứu YCSX'?  headerRenderer_invoice() : headerRenderer_invoice()}
+          {receiveParams.OPTIONS=='Xuất Kiểm (LOT)'? headerRenderer_inspect_output() : receiveParams.OPTIONS=='Nhập Kiểm (LOT)'? headerRenderer_inspect_input(): receiveParams.OPTIONS=='Nhập Xuất Kiểm (YCSX)'? headerRenderer_inspect_inoutycsx(): receiveParams.OPTIONS=='Tra cứu FCST'? headerRenderer_inspect_input() :receiveParams.OPTIONS=='Tra cứu YCSX'?  headerRenderer_inspect_input() : headerRenderer_inspect_input()}
           <FlatList
           /*   refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             } */
             style={styles.flatlist_format}
             data={emplList}
-            renderItem={receiveParams.OPTIONS=='Tra cứu PO'? ItemRenderer_po : receiveParams.OPTIONS=='Tra cứu invoice'? ItemRenderer_invoice: receiveParams.OPTIONS=='Tra cứu kế hoạch'? ItemRenderer_invoice: receiveParams.OPTIONS=='Tra cứu FCST'? ItemRenderer_invoice :receiveParams.OPTIONS=='Tra cứu YCSX'?  ItemRenderer_invoice : ItemRenderer_invoice}
+            renderItem={receiveParams.OPTIONS=='Xuất Kiểm (LOT)'? ItemRenderer_inspect_output : receiveParams.OPTIONS=='Nhập Kiểm (LOT)'? ItemRenderer_inspect_input: receiveParams.OPTIONS=='Nhập Xuất Kiểm (YCSX)'? ItemRenderer_inspect_inoutycsx: receiveParams.OPTIONS=='Tra cứu FCST'? ItemRenderer_inspect_input :receiveParams.OPTIONS=='Tra cứu YCSX'?  ItemRenderer_inspect_input : ItemRenderer_inspect_input}
           />
         </View>
       </ScrollView>

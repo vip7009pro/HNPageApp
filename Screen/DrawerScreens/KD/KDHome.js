@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#4EC11D',
-    padding: 20,
+    padding: 15,
     marginVertical: 8,
     borderRadius: 15,
     shadowColor: "#000",
@@ -27,7 +27,6 @@ shadowOffset: {
 },
 shadowOpacity: 0.25,
 shadowRadius: 4,
-
 elevation: 5,
   },
   header: {
@@ -68,59 +67,17 @@ export default function KDHome({navigation}) {
     <View style={styles.item}>
       <TouchableOpacity
         onPress={() => {
-            switch (title) {
-              case '':
+            if(title != 'Thêm PO' && title != 'Thêm invoice' && title != 'Thêm kế hoạch' && title != 'Tra cứu kế hoạch' && title != 'Tra cứu FCST' && title != 'Thêm YCSX' && title != 'Tra cứu YCSX')
+            {
                 navigation.push('DeliverySearchForm',{
                     options:title
-                });  
-                break;
-
-              case '':
-                navigation.push('DeliverySearchForm',{
-                    options:title
-                });  
-                break;
-
-              case '':
-                   navigation.push('DeliverySearchForm',{
-                options:title
-            });  
-                break;
-
-              case '':
-                   navigation.push('DeliverySearchForm',{
-                options:title
-            });  
-                break;
-
-              case '':
-                   navigation.push('DeliverySearchForm',{
-                options:title
-            });  
-                break;
-
-              case '':
-                   navigation.push('DeliverySearchForm',{
-                options:title
-            });  
-                break;
-
-              case '':
-                   navigation.push('DeliverySearchForm',{
-                options:title
-            });  
-                break;
-
-              case '':
-                   navigation.push('DeliverySearchForm',{
-                options:title
-            });  
-                break;
+                });         
             }
-
-            navigation.push('DeliverySearchForm',{
-                options:title
-            });         
+            else 
+            {
+                Alert.alert('Đang phát triển tính năng');
+            }   
+                    
         }}>
         <Text style={styles.title}>{title}</Text>
       </TouchableOpacity>
