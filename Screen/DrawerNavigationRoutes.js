@@ -24,6 +24,7 @@ import InOutSearch from './DrawerScreens/INSPECTION/InOutSearch/InOutSearch';
 import InOutTable from './DrawerScreens/INSPECTION/InOutSearch/InOutTable';
 import NewPOForm from './DrawerScreens/KD/Delivery/NewPOForm';
 import NewInvoiceForm from './DrawerScreens/KD/Delivery/NewInvoiceForm';
+import NewYCSXForm from './DrawerScreens/KD/Delivery/NewYCSXForm';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -164,6 +165,13 @@ const KDScreenStack = ({navigation}) => {
         component={NewInvoiceForm}
         options={{
           title: 'Thêm Invoice mới', //Set Header Title
+        }}
+      />
+       <Stack.Screen
+        name="NewYCSXForm"
+        component={NewYCSXForm}
+        options={{
+          title: 'Thêm YCSX mới', //Set Header Title
         }}
       />
     </Stack.Navigator>
