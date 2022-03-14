@@ -29,6 +29,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import CheckBox from '@react-native-community/checkbox';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import AsyncStorage from '@react-native-community/async-storage';
+import SweetAlert from 'react-native-sweet-alert';
 
 const styles = StyleSheet.create({
   container: {
@@ -120,7 +121,7 @@ const NewYCSXForm = ({route, navigation}) => {
   const [show, setShow] = useState(false);
   const [dateoption, setdateoption] = useState(1);
   const [delivery_date, setdelivery_date] = useState(
-    moment().format('YYYY-MM-DD'),
+    moment().format('YYYYMMDD'),
   );
   const [remark, setremark] = useState('');
   const [g_code, setG_CODE] = useState('');
@@ -157,9 +158,9 @@ const NewYCSXForm = ({route, navigation}) => {
     setShow(false);
     setDate(currentDate);
     if (dateoption == 1) {
-      setdelivery_date(moment(currentDate).format('YYYY-MM-DD'));
+      setdelivery_date(moment(currentDate).format('YYYYMMDD'));
     } else {
-      setremark(moment(currentDate).format('YYYY-MM-DD'));
+      setremark(moment(currentDate).format('YYYYMMDD'));
     }
   };
 
@@ -171,38 +172,6 @@ const NewYCSXForm = ({route, navigation}) => {
   const showDatepicker = option => {
     showMode('date');
     setdateoption(option);
-  };
-
-  const insertnewPO = () => {
-    let insertData = {
-      CUST_CD: cust_cd,
-      G_CODE: g_code,
-      loaisx: loaisx,
-      delivery_date: delivery_date,
-      remark: remark,
-      loaixh: loaixh,
-      request_qty: request_qty,
-      EMPL_NO: user_id.EMPL_NO,
-    };
-    console.log(insertData);
-    setIndicator(true);
-    setRefreshing(true);
-    generalQuery('insert_po', insertData)
-      .then(response => {
-        console.log(response.data.tk_status);
-        //setEmplList(response.data.data);
-        if (response.data.tk_status == 'OK') {
-          Alert.alert('Thêm PO mới thành công !');
-        } else {
-          Alert.alert('Thêm PO mới thất bại ! ' + response.data.message);
-        }
-
-        setIndicator(false);
-        setRefreshing(false);
-      })
-      .catch(error => {
-        console.log(error);
-      });
   };
 
   const getlistcode_customer = () => {
@@ -275,62 +244,108 @@ const NewYCSXForm = ({route, navigation}) => {
   ];
 
   const prod_request_no_generate = () => {
-    let insertData = {};
-    generalQuery('get_last_prod_request_no', insertData)
-      .then(response => {
-        console.log(response.data.data[0].PROD_REQUEST_NO);
-        let last_seq_no = response.data.data[0].PROD_REQUEST_NO.substring(3, 7);
-        let last_header = response.data.data[0].PROD_REQUEST_NO.substring(0, 3);
-        let nex_seq_no = String(parseInt(last_seq_no) + 1).padStart(4, '0');
-        let today_header =
-          new Date().getFullYear().toString().substring(2, 3) +
-          '' +
-          monthArray[new Date().getUTCMonth()] +
-          '' +
-          dayArray[new Date().getUTCDate() - 1];
-        let next_prod_request_no = '';
-        if (today_header != last_header) {
-          next_prod_request_no = today_header + '0001';
-        } else {
-          next_prod_request_no = last_header + nex_seq_no;
-        }
-
-        const ycsx_data = {
-          PROD_REQUEST_DATE:
-            new Date().getUTCFullYear() +
+    if (g_code == '' || cust_cd == '' || request_qty == 0) {
+      SweetAlert.showAlertWithOptions(
+        {
+          title: 'Thông báo',
+          subTitle: 'Không được để trống thông tin',
+          confirmButtonTitle: 'OK',
+          confirmButtonColor: '#000',
+          otherButtonTitle: 'Cancel',
+          otherButtonColor: '#dedede',
+          style: 'error',
+          cancellable: true,
+        },
+        callback => console.log('callback'),
+      );
+    } else {
+      let insertData = {};
+      generalQuery('get_last_prod_request_no', insertData)
+        .then(response => {
+          console.log(response.data.data[0].PROD_REQUEST_NO);
+          let last_seq_no = response.data.data[0].PROD_REQUEST_NO.substring(
+            3,
+            7,
+          );
+          let last_header = response.data.data[0].PROD_REQUEST_NO.substring(
+            0,
+            3,
+          );
+          let nex_seq_no = String(parseInt(last_seq_no) + 1).padStart(4, '0');
+          let today_header =
+            new Date().getFullYear().toString().substring(2, 3) +
             '' +
-            String(new Date().getUTCMonth() + 1).padStart(2, '0') +
-            String(new Date().getUTCDate() + 1).padStart(2, '0'),
+            monthArray[new Date().getUTCMonth()] +
+            '' +
+            dayArray[new Date().getUTCDate() - 1];
+          let next_prod_request_no = '';
+          if (today_header != last_header) {
+            next_prod_request_no = today_header + '0001';
+          } else {
+            next_prod_request_no = last_header + nex_seq_no;
+          }
+
+          const ycsx_data = {
+            PROD_REQUEST_DATE:
+              new Date().getUTCFullYear() +
+              '' +
+              String(new Date().getUTCMonth() + 1).padStart(2, '0') +
+              String(new Date().getUTCDate() + 1).padStart(2, '0'),
             PROD_REQUEST_NO: next_prod_request_no,
             CODE_03: '01',
             CODE_55: loaisx_code,
             CODE_50: loaixh_code,
             G_CODE: g_code,
-            RIV_NO: g_code.substring(7,8),
+            RIV_NO: g_code.substring(7, 8),
             PROD_REQUEST_QTY: request_qty,
             CUST_CD: cust_cd,
             EMPL_NO: user_id.EMPL_NO,
             REMARK: remark,
-            DELIVERY_DATE: delivery_date.getFullYear()+''+ delivery_date.getUTCMonth().padStart(2, '0')+''     + delivery_date.getUTCDate().padStart(2, '0')
-
-        };
-        generalQuery('insert_new_ycsx', ycsx_data)
-          .then(response => {
-            console.log(response.data.tk_status);
-            //setEmplList(response.data.data);
-            if (response.data.tk_status == 'OK') {
-              Alert.alert('Thêm YCSX mới thành công !');
-            } else {
-              Alert.alert('Thêm YCSX mới thất bại ! ' + response.data.message);
-            }
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      })
-      .catch(error => {
-        console.log(error);
-      });
+            DELIVERY_DATE: delivery_date,
+          };
+          console.log(ycsx_data);
+          generalQuery('insert_new_ycsx', ycsx_data)
+            .then(response => {
+              console.log(response.data.tk_status);
+              //setEmplList(response.data.data);
+              if (response.data.tk_status == 'OK') {                
+                SweetAlert.showAlertWithOptions(
+                  {
+                    title: 'Thông báo',
+                    subTitle: 'Thêm yêu cầu sản xuất mới thành công',
+                    confirmButtonTitle: 'OK',
+                    confirmButtonColor: '#000',
+                    otherButtonTitle: 'Cancel',
+                    otherButtonColor: '#dedede',
+                    style: 'success',
+                    cancellable: true,
+                  },
+                  callback => console.log('callback'),
+                );
+              } else {                
+                SweetAlert.showAlertWithOptions(
+                  {
+                    title: 'Thông báo',
+                    subTitle: 'Thêm YCSX mới thất bại ! ' + response.data.message,
+                    confirmButtonTitle: 'OK',
+                    confirmButtonColor: '#000',
+                    otherButtonTitle: 'Cancel',
+                    otherButtonColor: '#dedede',
+                    style: 'error',
+                    cancellable: true,
+                  },
+                  callback => console.log('callback'),
+                );
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
   useEffect(() => {
@@ -392,16 +407,7 @@ const NewYCSXForm = ({route, navigation}) => {
   return (
     <View
       style={{flex: 1, justifyContent: 'center', backgroundColor: '#5ECFE3'}}>
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{alignItems: 'center', marginTop: 5}}>
-          <Button
-            onPress={() => {
-              prod_request_no_generate();
-            }}
-            title="Thêm YCSX mới"
-            color={'#49C016'}
-          />
-        </View>
+      <SafeAreaView style={{flex: 1}}>        
         <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
             <View style={{width: '50%'}}>
@@ -512,6 +518,16 @@ const NewYCSXForm = ({route, navigation}) => {
             </View>
           </View>
         </ScrollView>
+        <View style={{flex:10, alignItems:'center', marginTop: 5}}>
+          <Button
+            onPress={() => {
+              prod_request_no_generate();
+            }}
+            title="Thêm YCSX mới"
+            color={'#49C016'}
+          />
+        </View>
+
 
         {buttonOption != 0 ? (
           <SearchableDropdown

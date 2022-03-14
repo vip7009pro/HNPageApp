@@ -29,6 +29,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import CheckBox from '@react-native-community/checkbox';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import AsyncStorage from '@react-native-community/async-storage';
+import SweetAlert from 'react-native-sweet-alert';
 
 
 
@@ -187,12 +188,37 @@ const NewInvoiceForm = ({route, navigation}) => {
         console.log(response.data.tk_status);
         //setEmplList(response.data.data);
         if(response.data.tk_status=='OK')
-        {
-          Alert.alert("Thêm Invoice mới thành công !");
+        {         
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: 'Thêm Invoice mới thành công !',
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'success',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );          
         }
         else
         {
-          Alert.alert("Thêm Invoice mới thất bại ! " + response.data.message );
+          
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: "Thêm Invoice mới thất bại ! " + response.data.message,
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'error',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );         
         }        
         setIndicator(false);
         setRefreshing(false);

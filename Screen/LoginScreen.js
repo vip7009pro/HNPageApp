@@ -17,7 +17,8 @@ import {
 
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from './Components/Loader';
-import { generalQuery } from '../Api/Api';
+import {generalQuery} from '../Api/Api';
+import SweetAlert from 'react-native-sweet-alert';
 
 const LoginScreen = ({navigation}) => {
   const [userEmail, setUserEmail] = useState('');
@@ -43,84 +44,40 @@ const LoginScreen = ({navigation}) => {
     setLoading(true);
     let submitData = {
       user: userEmail,
-      pass: userPassword
+      pass: userPassword,
     };
     generalQuery('login2', submitData)
-            .then(response => {
-                let kq = response.data.tk_status;
-                if (kq == 'ok') {
-                    let userData = {
-                        login_status: 'ok',
-                        userInfo: response.data.user_data
-                    };
-                    console.log(userData); 
-                    AsyncStorage.setItem('user_id', JSON.stringify(userData));
-                    navigation.replace('DrawerNavigationRoutes');
-                }
-                else {
-                    Alert.alert(
-                        "Thông báo",
-                        "Tên đăng nhập hoặc mật khẩu không đúng",
-                        [
-                            { text: "OK", onPress: () => console.log("OK Pressed") }
-                        ]
-                    );
-                }
-                setLoading(false);
-            })
-            .catch(error => {
-                setLoading(false);
-                console.log(error);
-            })
-
-    /*  setErrortext('');
-    if (!userEmail) {
-      alert('Please fill Email');
-      return;
-    }
-    if (!userPassword) {
-      alert('Please fill Password');
-      return;
-    }
-    setLoading(true);
-    let dataToSend = {email: userEmail, password: userPassword};
-    let formBody = [];
-    for (let key in dataToSend) {
-      let encodedKey = encodeURIComponent(key);
-      let encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + '=' + encodedValue);
-    }
-    formBody = formBody.join('&');
-
-    fetch('http://localhost:3000/api/user/login', {
-      method: 'POST',
-      body: formBody,
-      headers: {
-        //Header Defination
-        'Content-Type':
-        'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        //Hide Loader
-        setLoading(false);
-        console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status === 'success') {
-          AsyncStorage.setItem('user_id', responseJson.data.email);
-          console.log(responseJson.data.email);
+      .then(response => {
+        let kq = response.data.tk_status;
+        if (kq == 'ok') {
+          let userData = {
+            login_status: 'ok',
+            userInfo: response.data.user_data,
+          };
+          console.log(userData);
+          AsyncStorage.setItem('user_id', JSON.stringify(userData));
           navigation.replace('DrawerNavigationRoutes');
         } else {
-          setErrortext(responseJson.msg);
-          console.log('Please check your email id or password');
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: 'Tên đăng nhập hoặc mật khẩu không đúng',
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'error',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );
         }
-      })
-      .catch((error) => {
-        //Hide Loader
         setLoading(false);
-        console.error(error);
-      }); */
+      })
+      .catch(error => {
+        setLoading(false);
+        console.log(error);
+      });
   };
 
   return (

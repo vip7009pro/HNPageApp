@@ -10,7 +10,6 @@ import {
   Text,
   SafeAreaView,
   Button,
-  Alert,
   ScrollView,
   FlatList,
   StyleSheet,
@@ -29,6 +28,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import CheckBox from '@react-native-community/checkbox';
 import SearchableDropdown from 'react-native-searchable-dropdown';
 import AsyncStorage from '@react-native-community/async-storage';
+import SweetAlert from 'react-native-sweet-alert';
 
 const styles = StyleSheet.create({
   container: {
@@ -187,10 +187,34 @@ const NewPOForm = ({route, navigation}) => {
       .then(response => {
         console.log(response.data.tk_status);
         //setEmplList(response.data.data);
-        if (response.data.tk_status == 'OK') {
-          Alert.alert('Thêm PO mới thành công !');
-        } else {
-          Alert.alert('Thêm PO mới thất bại ! ' + response.data.message);
+        if (response.data.tk_status == 'OK') {          
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: 'Thêm PO mới thành công!',
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'success',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );
+        } else {         
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: 'Thêm PO mới thất bại ! ' + response.data.message,
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'error',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );
         }
 
         setIndicator(false);
