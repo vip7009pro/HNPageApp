@@ -22,6 +22,8 @@ import KDHome from './DrawerScreens/KD/KDHome';
 import InspectionHome from './DrawerScreens/INSPECTION/InspectionHome';
 import InOutSearch from './DrawerScreens/INSPECTION/InOutSearch/InOutSearch';
 import InOutTable from './DrawerScreens/INSPECTION/InOutSearch/InOutTable';
+import NewPOForm from './DrawerScreens/KD/Delivery/NewPOForm';
+import NewInvoiceForm from './DrawerScreens/KD/Delivery/NewInvoiceForm';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -148,6 +150,20 @@ const KDScreenStack = ({navigation}) => {
         component={TableScreen}
         options={{
           title: 'Kết quả truy vấn', //Set Header Title
+        }}
+      />
+       <Stack.Screen
+        name="NewPOForm"
+        component={NewPOForm}
+        options={{
+          title: 'Thêm PO mới', //Set Header Title
+        }}
+      />
+       <Stack.Screen
+        name="NewInvoiceForm"
+        component={NewInvoiceForm}
+        options={{
+          title: 'Thêm Invoice mới', //Set Header Title
         }}
       />
     </Stack.Navigator>

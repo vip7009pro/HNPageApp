@@ -67,12 +67,18 @@ export default function KDHome({navigation}) {
     <View style={styles.item}>
       <TouchableOpacity
         onPress={() => {
-            if(title != 'Thêm PO' && title != 'Thêm invoice' && title != 'Thêm kế hoạch' && title != 'Tra cứu kế hoạch' && title != 'Tra cứu FCST' && title != 'Thêm YCSX' && title != 'Tra cứu YCSX')
+            if(title == 'Thêm PO')
+            {
+                navigation.navigate('NewPOForm',{
+                    options:title
+                });
+            }
+            else if( title != 'Thêm invoice' && title != 'Thêm kế hoạch' && title != 'Tra cứu kế hoạch' && title != 'Tra cứu FCST' && title != 'Thêm YCSX' && title != 'Tra cứu YCSX')
             {
                 navigation.push('DeliverySearchForm',{
                     options:title
                 });         
-            }
+            }            
             else 
             {
                 Alert.alert('Đang phát triển tính năng');

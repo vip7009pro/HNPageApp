@@ -60,46 +60,7 @@ export default function AccountTab() {
           <Text style={styles.header}>{title}</Text>
         )}
       />
-    </SafeAreaView>
-
-    /*  <View style={accountStyle.sideMenuContainer}>
-          <Text style={accountStyle.profileHeaderText}>
-              Thông tin tài khoản của bạn {userid.EMPL_NO}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Mã nhân viên ERP: {userid.EMPL_NO}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Mã nhân viên CMS: {userid.CMS_ID}
-          </Text>          
-          <Text style={accountStyle.profileHeaderText}>
-              Tên đầy đủ: {userid.MIDLAST_NAME + " " + userid.FIRST_NAME}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Ngày tháng năm sinh: {DOB().slice(0, 10)}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Quê quán: {userid.HOMETOWN}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Địa chỉ thường trú: {userid.ADD_VILLAGE}-{userid.ADD_COMMUNE}-{userid.ADD_DISTRICT}-{userid.ADD_PROVINCE}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Bộ phận chính: {userid.MAINDEPTNAME}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Bộ phận phụ: {userid.SUBDEPTNAME}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Vị trí làm việc: {userid.WORK_POSITION_NAME}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Nhóm điểm danh: {userid.ATT_GROUP_CODE}
-          </Text>
-          <Text style={accountStyle.profileHeaderText}>
-              Chức vụ: {userid.JOB_NAME}
-          </Text>
-      </View> */
+    </SafeAreaView>   
   );
 }
 const styles = StyleSheet.create({

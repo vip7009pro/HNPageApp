@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
-
 import Loader from './Components/Loader';
 import { generalQuery } from '../Api/Api';
 
@@ -151,7 +150,7 @@ const LoginScreen = ({navigation}) => {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={UserEmail => setUserEmail(UserEmail)}
-                placeholder="Enter Email" //dummy@abc.com
+                placeholder="CMS ERP ID" //dummy@abc.com
                 placeholderTextColor="#8b9cb5"
                 autoCapitalize="none"
                 keyboardType="email-address"

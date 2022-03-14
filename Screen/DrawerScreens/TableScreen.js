@@ -339,7 +339,10 @@ const TableScreen = ({route, navigation}) => {
   );
 
   const ItemRenderer_po = ({item, index}) => (
-    <View
+    <Pressable
+    onLongPress={()=>{      
+      navigation.navigate('NewInvoiceForm',item);
+    }}  
       style={[
         styles.flatlist_item_format,
         {
@@ -398,7 +401,7 @@ const TableScreen = ({route, navigation}) => {
       <Text style={{color: '#1FA5C6', fontSize: 15, width: 150}}>
         <Text style={{fontWeight: 'bold'}}>{item.EMPL_NAME}</Text>
       </Text>
-    </View>
+    </Pressable>
   );
 
   return (
