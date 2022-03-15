@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, SectionList, StyleSheet, Text, View} from 'react-native';
+import {Alert, Pressable, SafeAreaView, SectionList, StyleSheet, Text, View} from 'react-native';
+import { Button } from 'react-native-elements/dist/buttons/Button';
 
-export default function AccountTab() {
+export default function AccountTab({navigation}) {
   const [userid, setUserId] = useState('');
   const DOB = () => {
     if (userid.DOB != null) {
@@ -60,6 +61,35 @@ export default function AccountTab() {
           <Text style={styles.header}>{title}</Text>
         )}
       />
+      <Pressable
+      style={styles.logout}
+      onPress={()=> {
+        Alert.alert(
+          'Logout',
+          'Are you sure? You want to logout?',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {
+                return null;
+              },
+            },
+            {
+              text: 'Confirm',
+              onPress: () => {
+                AsyncStorage.clear();
+                navigation.replace('Auth');
+              },
+            },
+          ],
+          {cancelable: false},
+        );      
+        
+      }
+      }>
+        <Text>Logout</Text>
+             
+      </Pressable>
     </SafeAreaView>   
   );
 }
@@ -67,6 +97,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginHorizontal: 16,
+        alignItems:'center'
       },
   sideMenuContainer: {
     width: '100%',
@@ -94,7 +125,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: '#6A88F9',
     padding: 15,
-    marginVertical: 8,
+    marginVertical: 5,
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: {
@@ -106,4 +137,23 @@ const styles = StyleSheet.create({
 
     elevation: 5,
   },
+  logout: {
+    width: 100,
+    height:30,
+    backgroundColor:'red',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius: 5,
+    marginBottom: 5,
+    marginTop: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+
+  }
 });

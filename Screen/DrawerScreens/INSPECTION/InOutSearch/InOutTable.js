@@ -23,6 +23,7 @@ import {
 import {ListItem} from 'react-native-elements';
 
 import LinearGradient from 'react-native-linear-gradient';
+import SweetAlert from 'react-native-sweet-alert';
 import { generalQuery } from '../../../../Api/Api';
 
 const styles = StyleSheet.create({
@@ -109,10 +110,34 @@ const InOutTable = ({route, navigation}) => {
       .then(response => {
         if (response.data.status == 'NG') {
           setRefreshing(false);
-          setIndicator(false);
-          Alert.alert('Không có data nào !');
-        } else {
-          Alert.alert('Đã load ' + response.data.data.length + ' dòng dữ liệu');
+          setIndicator(false);          
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: 'Không có data',
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'error',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );    
+        } else {         
+          SweetAlert.showAlertWithOptions(
+            {
+              title: 'Thông báo',
+              subTitle: 'Đã load ' + response.data.data.length + ' dòng dữ liệu',
+              confirmButtonTitle: 'OK',
+              confirmButtonColor: '#000',
+              otherButtonTitle: 'Cancel',
+              otherButtonColor: '#dedede',
+              style: 'success',
+              cancellable: true,
+            },
+            callback => console.log('callback'),
+          );    
           let sumAmount = 0.0;
           let sumQty = 0;
           let sumdeliQty = 0;

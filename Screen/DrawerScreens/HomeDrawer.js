@@ -128,9 +128,69 @@ const HomeDrawerStack =({navigation})=> {
 export default function HomeDrawer() {
   return (
     <Stack.Navigator initialRouteName="DrawerMenu">
-      <Stack.Screen name="KDStack" component={KDScreenStack} options={{headerShown: false}} ></Stack.Screen>
-      <Stack.Screen name="IPStack" component={INSPECTIONScreenStack} options={{headerShown: false}}></Stack.Screen>
-      <Stack.Screen name="DrawerMenu" component={DrawerMenu} options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="KDStack"
+        component={KDScreenStack}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="IPStack"
+        component={INSPECTIONScreenStack}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="DeliverySearchForm"
+        component={DeliverySearch}
+        options={{
+          title: 'Tìm kiếm', //Set Header Title
+        }}
+      />
+
+      <Stack.Screen
+        name="TableScreen"
+        component={TableScreen}
+        options={{
+          title: 'Kết quả truy vấn', //Set Header Title
+        }}
+      />
+      <Stack.Screen
+        name="NewPOForm"
+        component={NewPOForm}
+        options={{
+          title: 'Thêm PO mới', //Set Header Title
+        }}
+      />
+      <Stack.Screen
+        name="NewInvoiceForm"
+        component={NewInvoiceForm}
+        options={{
+          title: 'Thêm Invoice mới', //Set Header Title
+        }}
+      />
+      <Stack.Screen
+        name="NewYCSXForm"
+        component={NewYCSXForm}
+        options={{
+          title: 'Thêm YCSX mới', //Set Header Title
+        }}
+      />
+      <Stack.Screen
+        name="InOutSearchForm"
+        component={InOutSearch}
+        options={{
+          title: 'Tìm kiếm kiểm tra', //Set Header Title
+        }}
+      />
+
+      <Stack.Screen
+        name="InOutTable"
+        component={InOutTable}
+        options={{
+          title: 'Kết quả truy vấn', //Set Header Title
+        }}
+      />
+      <Stack.Screen
+        name="DrawerMenu"
+        component={DrawerMenu}
+        options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );
 }

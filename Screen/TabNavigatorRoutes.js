@@ -39,8 +39,8 @@ const TabNavigatorRoutes = props => {
       })}>
       <Tab.Screen
         name="Home"
-        component={DrawerNavigationRoutes}
-        /*  component={HomeDrawer} */
+        /* component={DrawerNavigationRoutes} */
+         component={HomeDrawer}
         options={{headerShown: false}}
       />
 

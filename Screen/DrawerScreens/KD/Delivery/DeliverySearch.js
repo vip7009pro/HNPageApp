@@ -126,6 +126,7 @@ const DeliverySearch = ({route, navigation}) => {
 
   const options = route.params;
 
+ 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(false);
@@ -169,7 +170,7 @@ const DeliverySearch = ({route, navigation}) => {
         console.log(error);
       });
   };
-  useEffect(() => {
+  useEffect(() => {   
     // getEmplList();
   }, []);
 
