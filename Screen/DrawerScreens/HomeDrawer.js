@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { SafeAreaView, Text, View } from 'react-native'
 import NavigationDrawerHeader from '../Components/NavigationDrawerHeader';
+import DrawerMenu from './DrawerMenu';
 import InOutSearch from './INSPECTION/InOutSearch/InOutSearch';
 import InOutTable from './INSPECTION/InOutSearch/InOutTable';
 import InspectionHome from './INSPECTION/InspectionHome';
@@ -18,10 +19,7 @@ const KDScreenStack = ({navigation}) => {
     return (
       <Stack.Navigator
         initialRouteName="KDHome"
-        screenOptions={{
-          headerLeft: () => (
-            <NavigationDrawerHeader navigationProps={navigation} />
-          ),
+        screenOptions={{         
           headerStyle: {
             backgroundColor: '#2FABF1', //Set Header color
           },
@@ -82,10 +80,7 @@ const KDScreenStack = ({navigation}) => {
     return (
       <Stack.Navigator
         initialRouteName="InspectionHome"
-        screenOptions={{
-          headerLeft: () => (
-            <NavigationDrawerHeader navigationProps={navigation} />
-          ),
+        screenOptions={{         
           headerStyle: {
             backgroundColor: '#2FABF1', //Set Header color
           },
@@ -132,11 +127,10 @@ const HomeDrawerStack =({navigation})=> {
 }
 export default function HomeDrawer() {
   return (
-    <Stack.Navigator initialRouteName="KDStack">
-      <Stack.Screen name="KDStack" component={KDScreenStack}></Stack.Screen>
-      <Stack.Screen
-        name="IPStack"
-        component={INSPECTIONScreenStack}></Stack.Screen>
+    <Stack.Navigator initialRouteName="DrawerMenu">
+      <Stack.Screen name="KDStack" component={KDScreenStack} options={{headerShown: false}} ></Stack.Screen>
+      <Stack.Screen name="IPStack" component={INSPECTIONScreenStack} options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen name="DrawerMenu" component={DrawerMenu} options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );
 }

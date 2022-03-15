@@ -40,21 +40,16 @@ const TabNavigatorRoutes = props => {
       <Tab.Screen
         name="Home"
         component={DrawerNavigationRoutes}
-        /* component={HomeDrawer} */
+        /*  component={HomeDrawer} */
         options={{headerShown: false}}
       />
-      {/*  <Tab.Screen
-        name="Settings"
-        component={SettingScreenStack}
-        options={{headerShown: false}}
-      /> */}
+
       <Tab.Screen
         name="Cá nhân"
         component={AccountTab}
-        options={{headerShown: false}}        
+        options={{headerShown: false}}
       />
     </Tab.Navigator>
   );
 };
-
 export default TabNavigatorRoutes;
