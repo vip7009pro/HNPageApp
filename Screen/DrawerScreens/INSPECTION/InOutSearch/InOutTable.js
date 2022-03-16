@@ -19,12 +19,16 @@ import {
   TouchableOpacity,
   Pressable,
   TextInput,
+  PermissionsAndroid,
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 
 import LinearGradient from 'react-native-linear-gradient';
 import SweetAlert from 'react-native-sweet-alert';
 import { generalQuery } from '../../../../Api/Api';
+import XLSX from 'xlsx';
+var RNFS = require('react-native-fs');
+import FileViewer from 'react-native-file-viewer';
 
 const styles = StyleSheet.create({
   container: {
@@ -99,6 +103,124 @@ const InOutTable = ({route, navigation}) => {
   const [sumbalanceamount, setsumbalanceamount] = useState(0);
   const [receiveParams,setreceiveParams] = useState(route.params);
     
+  const exportDataToExcel = data => {
+    // Created Sample data
+   
+    //console.log(data);
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Data');
+    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+    const pathexcel = RNFS.ExternalStorageDirectoryPath + '/Download/' + moment(new Date()).format('YYYY-MM-DD hms')+'.xlsx';
+    // Write generated excel to Storage
+    RNFS.writeFile(pathexcel
+      ,
+      wbout,
+      'ascii',
+    )
+      .then(r => {
+        console.log('Success');
+        SweetAlert.showAlertWithOptions(
+          {
+            title: 'Thông báo',
+            subTitle: 'Lưu file excel thành công: ' + pathexcel,
+            confirmButtonTitle: 'OK',
+            confirmButtonColor: '#000',
+            cancelButtonTitle:'Cancel',
+            otherButtonTitle: 'Cancel',
+            otherButtonColor: '#dedede',
+            style: 'success',
+            cancellable: true,
+          },
+          callback => {
+            FileViewer.open(pathexcel, {showOpenWithDialog: true}) // absolute-path-to-my-local-file.
+                .then(() => {
+                  // success
+                  
+                })
+                .catch(error => {
+                  SweetAlert.showAlertWithOptions(
+                    {
+                      title: 'Thông báo',
+                      subTitle: 'Thất bại: ' + error.toString(),
+                      confirmButtonTitle: 'OK',
+                      confirmButtonColor: '#000',
+                      cancelButtonTitle:'Cancel',
+                      otherButtonTitle: 'Cancel',
+                      otherButtonColor: '#dedede',
+                      style: 'success',
+                      cancellable: true,
+                    });
+                });
+          },
+        );
+      })
+      .catch(e => {
+        console.log('Error', e);
+        SweetAlert.showAlertWithOptions(
+          {
+            title: 'Thông báo',
+            subTitle: 'Có lỗi: '+e.toString() ,
+            confirmButtonTitle: 'OK',
+            confirmButtonColor: '#000',
+            otherButtonTitle: 'Cancel',
+            otherButtonColor: '#dedede',
+            style: 'error',
+            cancellable: true,
+          },
+          callback => console.log('callback'),
+        );
+      });
+  };
+
+  const handleClick = async () => {
+    try {
+      // Check for Permission (check if permission is already given or not)
+      let isPermitedExternalStorage = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
+      );
+
+      if (!isPermitedExternalStorage) {
+        // Ask for permission
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage write permission needed',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        const granted2 = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+          {
+            title: 'Storage read permission needed',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        
+        if (granted === PermissionsAndroid.RESULTS.GRANTED && granted2 === PermissionsAndroid.RESULTS.GRANTED) {
+          // Permission Granted (calling our exportDataToExcel function)
+          exportDataToExcel(emplList);
+          console.log('Permission granted');
+        } else {
+          // Permission denied
+          console.log('Permission denied');
+        }
+      } else {
+        // Already have Permission (calling our exportDataToExcel function)
+        exportDataToExcel(emplList);
+      }
+    } catch (e) {
+      console.log('Error while checking permission');
+      console.log(e);
+      return;
+    }
+  };
+
   const onRefresh = useCallback(() => {
     getEmplList(receiveParams);
   }, []);
@@ -240,6 +362,7 @@ const InOutTable = ({route, navigation}) => {
           borderRightColor: 'black',
         },
       ]}>
+      
       <Text style={{fontWeight: 'bold', color: 'red'}}>{index + 1}.</Text>
       <Text style={{fontWeight: 'bold', width: 80, color: 'green'}}>
         {item.CUST_NAME_KD}
@@ -257,14 +380,22 @@ const InOutTable = ({route, navigation}) => {
         {item.PROD_REQUEST_NO}
       </Text>
       <Text style={{fontWeight: 'bold', width: 200, color: 'grey'}}>
-        {item.INPUT_DATETIME.slice(0,10) +  ' ' + item.INPUT_DATETIME.slice(11,18)}       
-      </Text>     
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100, fontWeight: 'bold'}}>        
-          {numberWithCommas(item.INPUT_QTY_EA)}       
+        {item.INPUT_DATETIME.slice(0, 10) +
+          ' ' +
+          item.INPUT_DATETIME.slice(11, 18)}
+      </Text>
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.INPUT_QTY_EA)}
       </Text>
       <Text style={{color: '#EF29F2', fontSize: 15, width: 100}}>
         <Text style={{fontWeight: 'bold'}}>{item.REMARK}</Text>
-      </Text>     
+      </Text>
       <Text style={{color: '#3B2CEE', fontSize: 15, width: 100}}>
         <Text style={{fontWeight: 'bold'}}>{item.PROD_TYPE}</Text>
       </Text>
@@ -464,6 +595,12 @@ const InOutTable = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <Button
+        title="Save Excel"
+        onPress={() => {
+          handleClick();
+        }}
+        color="green"></Button>
       {indicator && <ActivityIndicator size="large" color="#00ff00" />}
       {receiveParams.OPTIONS=='Xuất Kiểm (LOT)'? sumaryRenderer_inspect_output() : receiveParams.OPTIONS=='Nhập Kiểm (LOT)'? sumaryRenderer_inspect_input(): receiveParams.OPTIONS=='Nhập Xuất Kiểm (YCSX)'? sumaryRenderer_inspect_inoutycsx(): receiveParams.OPTIONS=='Tra cứu FCST'? sumaryRenderer_inspect_input() :receiveParams.OPTIONS=='Tra cứu YCSX'?  sumaryRenderer_inspect_input() : sumaryRenderer_inspect_input()}
       <ScrollView horizontal={true}>

@@ -16,18 +16,16 @@ import {
   Pressable,
   Button,
   PermissionsAndroid,
+  Linking,
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {generalQuery} from '../../Api/Api';
 import LinearGradient from 'react-native-linear-gradient';
 import SweetAlert from 'react-native-sweet-alert';
-import XLSX from 'xlsx'
+import XLSX from 'xlsx';
+import moment from 'moment';
 var RNFS = require('react-native-fs');
-
-
-
-
-
+import FileViewer from 'react-native-file-viewer';
 
 const styles = StyleSheet.create({
   container: {
@@ -78,8 +76,8 @@ const styles = StyleSheet.create({
   },
   summaryBox: {
     marginLeft: 10,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
 function currencyFormat(num) {
@@ -100,70 +98,145 @@ const TableScreen = ({route, navigation}) => {
   const [sumdeliamount, setsumdeliamount] = useState(0);
   const [sumbalanceqty, setsumbalanceqty] = useState(0);
   const [sumbalanceamount, setsumbalanceamount] = useState(0);
-  const [receiveParams,setreceiveParams] = useState(route.params);
+  const [receiveParams, setreceiveParams] = useState(route.params);
 
-
-  const exportDataToExcel = (data) => {
-
-    // Created Sample data
-    let sample_data_to_export = data;
-    console.log(data);
-  
-    let wb = XLSX.utils.book_new();
-    let ws = XLSX.utils.json_to_sheet(sample_data_to_export)    
-    XLSX.utils.book_append_sheet(wb,ws,"Data")
-    const wbout = XLSX.write(wb, {type:'binary', bookType:"xlsx"});
-  
-    // Write generated excel to Storage
-    RNFS.writeFile(RNFS.ExternalStorageDirectoryPath + '/zzzz.xlsx', wbout, 'ascii').then((r)=>{
-     console.log('Success');
-    }).catch((e)=>{
-      console.log('Error', e);
+  const handleDeepLinkPress = (url) => {
+    Linking.openURL(url).catch((e) => {
+      SweetAlert.showAlertWithOptions(
+        {
+          title: 'Thông báo',
+          subTitle: 'Có lỗi: '+e.toString() ,
+          confirmButtonTitle: 'OK',
+          confirmButtonColor: '#000',
+          otherButtonTitle: 'Cancel',
+          otherButtonColor: '#dedede',
+          style: 'error',
+          cancellable: true,
+        },
+        callback => console.log('callback'),
+      );
     });
-  
-  }
-  
+  };
+  const exportDataToExcel = data => {
+    // Created Sample data
+   
+    //console.log(data);
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Data');
+    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+    const pathexcel = RNFS.ExternalStorageDirectoryPath + '/Download/' + moment(new Date()).format('YYYY-MM-DD hms')+'.xlsx';
+    // Write generated excel to Storage
+    RNFS.writeFile(pathexcel
+      ,
+      wbout,
+      'ascii',
+    )
+      .then(r => {
+        console.log('Success');
+        SweetAlert.showAlertWithOptions(
+          {
+            title: 'Thông báo',
+            subTitle: 'Lưu file excel thành công: ' + pathexcel,
+            confirmButtonTitle: 'OK',
+            confirmButtonColor: '#000',
+            cancelButtonTitle:'Cancel',
+            otherButtonTitle: 'Cancel',
+            otherButtonColor: '#dedede',
+            style: 'success',
+            cancellable: true,
+          },
+          callback => {
+            /* handleDeepLinkPress('file://' + pathexcel); */
+            //handleDeepLinkPress('http://14.160.33.94:3030');              
+              FileViewer.open(pathexcel, {showOpenWithDialog: true}) // absolute-path-to-my-local-file.
+                .then(() => {
+                  // success
+                  
+                })
+                .catch(error => {
+                  SweetAlert.showAlertWithOptions(
+                    {
+                      title: 'Thông báo',
+                      subTitle: 'Thất bại: ' + error.toString(),
+                      confirmButtonTitle: 'OK',
+                      confirmButtonColor: '#000',
+                      cancelButtonTitle:'Cancel',
+                      otherButtonTitle: 'Cancel',
+                      otherButtonColor: '#dedede',
+                      style: 'success',
+                      cancellable: true,
+                    });
+                });
+          },
+        );
+      })
+      .catch(e => {
+        console.log('Error', e);
+        SweetAlert.showAlertWithOptions(
+          {
+            title: 'Thông báo',
+            subTitle: 'Có lỗi: '+e.toString() ,
+            confirmButtonTitle: 'OK',
+            confirmButtonColor: '#000',
+            otherButtonTitle: 'Cancel',
+            otherButtonColor: '#dedede',
+            style: 'error',
+            cancellable: true,
+          },
+          callback => console.log('callback'),
+        );
+      });
+  };
+
   const handleClick = async () => {
-  
-    try{
+    try {
       // Check for Permission (check if permission is already given or not)
-      let isPermitedExternalStorage = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
-  
-      if(!isPermitedExternalStorage){
-  
+      let isPermitedExternalStorage = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE
+      );
+
+      if (!isPermitedExternalStorage) {
         // Ask for permission
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
-            title: "Storage permission needed",
-            buttonNeutral: "Ask Me Later",
-            buttonNegative: "Cancel",
-            buttonPositive: "OK"
-          }
-        ); 
+            title: 'Storage write permission needed',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        const granted2 = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+          {
+            title: 'Storage read permission needed',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
         
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        if (granted === PermissionsAndroid.RESULTS.GRANTED && granted2 === PermissionsAndroid.RESULTS.GRANTED) {
           // Permission Granted (calling our exportDataToExcel function)
           exportDataToExcel(emplList);
-          console.log("Permission granted");
+          console.log('Permission granted');
         } else {
           // Permission denied
-          console.log("Permission denied");
+          console.log('Permission denied');
         }
-      }else{
-         // Already have Permission (calling our exportDataToExcel function)
-         exportDataToExcel();
+      } else {
+        // Already have Permission (calling our exportDataToExcel function)
+        exportDataToExcel(emplList);
       }
-    }catch(e){
+    } catch (e) {
       console.log('Error while checking permission');
       console.log(e);
-      return
+      return;
     }
-    
   };
 
-
-    
   const onRefresh = useCallback(() => {
     getEmplList(receiveParams);
   }, []);
@@ -175,7 +248,7 @@ const TableScreen = ({route, navigation}) => {
       .then(response => {
         if (response.data.status == 'NG') {
           setRefreshing(false);
-          setIndicator(false);         
+          setIndicator(false);
           SweetAlert.showAlertWithOptions(
             {
               title: 'Thông báo',
@@ -189,11 +262,12 @@ const TableScreen = ({route, navigation}) => {
             },
             callback => console.log('callback'),
           );
-        } else {          
+        } else {
           SweetAlert.showAlertWithOptions(
             {
               title: 'Thông báo',
-              subTitle: 'Đã load ' + response.data.data.length + ' dòng dữ liệu',
+              subTitle:
+                'Đã load ' + response.data.data.length + ' dòng dữ liệu',
               confirmButtonTitle: 'OK',
               confirmButtonColor: '#000',
               otherButtonTitle: 'Cancel',
@@ -208,8 +282,8 @@ const TableScreen = ({route, navigation}) => {
           let sumdeliQty = 0;
           let sumdeliAmount = 0.0;
           let sumbalanceQty = 0;
-          let sumbalanceAmount =0.0;
-          
+          let sumbalanceAmount = 0.0;
+
           if (receiveParams.OPTIONS == 'Tra cứu PO') {
             console.log('tinh po');
             for (let k = 0; k < response.data.data.length; k++) {
@@ -226,8 +300,8 @@ const TableScreen = ({route, navigation}) => {
               sumQty += response.data.data[k].DELIVERY_QTY;
               sumAmount += response.data.data[k].DELIVERED_AMOUNT;
             }
-          }               
-          
+          }
+
           console.log('Qty total = ' + sumQty);
           console.log('Amount total = ' + sumAmount);
           console.log('Qty deli total = ' + sumdeliQty);
@@ -251,8 +325,7 @@ const TableScreen = ({route, navigation}) => {
         console.log(error);
       });
   };
-  useEffect(() => {  
-    
+  useEffect(() => {
     getEmplList(receiveParams);
   }, []);
 
@@ -357,21 +430,21 @@ const TableScreen = ({route, navigation}) => {
   );
 
   const sumaryRenderer_po = () => (
-    <View style={{ flexDirection:'row', alignContent:'center', marginTop: 10}}>
+    <View style={{flexDirection: 'row', alignContent: 'center', marginTop: 10}}>
       <View style={styles.summaryBox}>
         <Text style={{fontSize: 15, fontWeight: 'bold', color: 'blue'}}>
           {numberWithCommas(sumqty)} EA
         </Text>
         <Text style={{fontSize: 15, fontWeight: 'bold', color: 'blue'}}>
-         {currencyFormat(sumamount)}
+          {currencyFormat(sumamount)}
         </Text>
       </View>
       <View style={styles.summaryBox}>
         <Text style={{fontSize: 15, fontWeight: 'bold', color: 'green'}}>
-         {numberWithCommas(sumdeliqty)} EA
+          {numberWithCommas(sumdeliqty)} EA
         </Text>
         <Text style={{fontSize: 15, fontWeight: 'bold', color: 'green'}}>
-         {currencyFormat(sumdeliamount)}
+          {currencyFormat(sumdeliamount)}
         </Text>
       </View>
       <View style={styles.summaryBox}>
@@ -379,7 +452,7 @@ const TableScreen = ({route, navigation}) => {
           {numberWithCommas(sumbalanceqty)} EA
         </Text>
         <Text style={{fontSize: 15, fontWeight: 'bold', color: 'red'}}>
-         {currencyFormat(sumbalanceamount)}
+          {currencyFormat(sumbalanceamount)}
         </Text>
       </View>
     </View>
@@ -432,9 +505,9 @@ const TableScreen = ({route, navigation}) => {
 
   const ItemRenderer_po = ({item, index}) => (
     <Pressable
-    onLongPress={()=>{      
-      navigation.navigate('NewInvoiceForm',item);
-    }}  
+      onLongPress={() => {
+        navigation.navigate('NewInvoiceForm', item);
+      }}
       style={[
         styles.flatlist_item_format,
         {
@@ -463,32 +536,86 @@ const TableScreen = ({route, navigation}) => {
       <Text style={{fontWeight: 'bold', width: 100, color: 'grey'}}>
         {item.RD_DATE.slice(0, 10)}
       </Text>
-      <Text style={{color: '#039E05', fontSize: 15, width: 150, fontWeight: 'bold'}}>
+      <Text
+        style={{
+          color: '#039E05',
+          fontSize: 15,
+          width: 150,
+          fontWeight: 'bold',
+        }}>
         {item.PO_NO}
       </Text>
-      <Text style={{color: '#EF29F2', fontSize: 15, width: 100,fontWeight: 'bold'}}>
-       {item.PROD_PRICE}
+      <Text
+        style={{
+          color: '#EF29F2',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {item.PROD_PRICE}
       </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100,fontWeight: 'bold'}}>       
-        {numberWithCommas(item.PO_QTY)}       
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.PO_QTY)}
       </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100,fontWeight: 'bold'}}>       
-        {numberWithCommas(item.DELIVERY_QTY)}       
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.DELIVERY_QTY)}
       </Text>
-      <Text style={{color: '#8C12FE', fontSize: 15, width: 100,fontWeight: 'bold'}}>       
-        {numberWithCommas(item.PO_BALANCE_QTY)}       
+      <Text
+        style={{
+          color: '#8C12FE',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {numberWithCommas(item.PO_BALANCE_QTY)}
       </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100,fontWeight: 'bold'}}>        
-          {currencyFormat(item.PO_AMOUNT)}       
+      <Text
+        style={{
+          color: '#339E05',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {currencyFormat(item.PO_AMOUNT)}
       </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100,fontWeight: 'bold'}}>        
-          {currencyFormat(item.DELIVERED_AMOUNT)}       
+      <Text
+        style={{
+          color: '#339E05',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {currencyFormat(item.DELIVERED_AMOUNT)}
       </Text>
-      <Text style={{color: '#339E05', fontSize: 15, width: 100,fontWeight: 'bold'}}>        
-          {currencyFormat(item.PO_BALANCE_AMOUNT)}       
+      <Text
+        style={{
+          color: '#339E05',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {currencyFormat(item.PO_BALANCE_AMOUNT)}
       </Text>
-      <Text style={{color: '#F36425', fontSize: 15, width: 100,fontWeight: 'bold'}}>
-       {item.PROD_TYPE}
+      <Text
+        style={{
+          color: '#F36425',
+          fontSize: 15,
+          width: 100,
+          fontWeight: 'bold',
+        }}>
+        {item.PROD_TYPE}
       </Text>
       <Text style={{color: '#1FA5C6', fontSize: 15, width: 150}}>
         <Text style={{fontWeight: 'bold'}}>{item.EMPL_NAME}</Text>
@@ -499,25 +626,55 @@ const TableScreen = ({route, navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <Button
-      title='Save Excel'
-      onPress={()=>{
-        handleClick();
-      }}
-      color='green'>
-
-      </Button>
+        title="Save Excel"
+        onPress={() => {
+          handleClick();
+        }}
+        color="green"></Button>
       {indicator && <ActivityIndicator size="large" color="#00ff00" />}
-      {receiveParams.OPTIONS=='Tra cứu PO'? sumaryRenderer_po() : receiveParams.OPTIONS=='Tra cứu invoice'? sumaryRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu kế hoạch'? sumaryRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu FCST'? sumaryRenderer_invoice() :receiveParams.OPTIONS=='Tra cứu YCSX'?  sumaryRenderer_invoice() : sumaryRenderer_invoice()}
+      {receiveParams.OPTIONS == 'Tra cứu PO'
+        ? sumaryRenderer_po()
+        : receiveParams.OPTIONS == 'Tra cứu invoice'
+        ? sumaryRenderer_invoice()
+        : receiveParams.OPTIONS == 'Tra cứu kế hoạch'
+        ? sumaryRenderer_invoice()
+        : receiveParams.OPTIONS == 'Tra cứu FCST'
+        ? sumaryRenderer_invoice()
+        : receiveParams.OPTIONS == 'Tra cứu YCSX'
+        ? sumaryRenderer_invoice()
+        : sumaryRenderer_invoice()}
       <ScrollView horizontal={true}>
         <View style={{flex: 1}}>
-          {receiveParams.OPTIONS=='Tra cứu PO'? headerRenderer_po() : receiveParams.OPTIONS=='Tra cứu invoice'? headerRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu kế hoạch'? headerRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu FCST'? headerRenderer_invoice() :receiveParams.OPTIONS=='Tra cứu YCSX'?  headerRenderer_invoice() : headerRenderer_invoice()}
+          {receiveParams.OPTIONS == 'Tra cứu PO'
+            ? headerRenderer_po()
+            : receiveParams.OPTIONS == 'Tra cứu invoice'
+            ? headerRenderer_invoice()
+            : receiveParams.OPTIONS == 'Tra cứu kế hoạch'
+            ? headerRenderer_invoice()
+            : receiveParams.OPTIONS == 'Tra cứu FCST'
+            ? headerRenderer_invoice()
+            : receiveParams.OPTIONS == 'Tra cứu YCSX'
+            ? headerRenderer_invoice()
+            : headerRenderer_invoice()}
           <FlatList
-          /*   refreshControl={
+            /*   refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             } */
             style={styles.flatlist_format}
             data={emplList}
-            renderItem={receiveParams.OPTIONS=='Tra cứu PO'? ItemRenderer_po : receiveParams.OPTIONS=='Tra cứu invoice'? ItemRenderer_invoice: receiveParams.OPTIONS=='Tra cứu kế hoạch'? ItemRenderer_invoice: receiveParams.OPTIONS=='Tra cứu FCST'? ItemRenderer_invoice :receiveParams.OPTIONS=='Tra cứu YCSX'?  ItemRenderer_invoice : ItemRenderer_invoice}
+            renderItem={
+              receiveParams.OPTIONS == 'Tra cứu PO'
+                ? ItemRenderer_po
+                : receiveParams.OPTIONS == 'Tra cứu invoice'
+                ? ItemRenderer_invoice
+                : receiveParams.OPTIONS == 'Tra cứu kế hoạch'
+                ? ItemRenderer_invoice
+                : receiveParams.OPTIONS == 'Tra cứu FCST'
+                ? ItemRenderer_invoice
+                : receiveParams.OPTIONS == 'Tra cứu YCSX'
+                ? ItemRenderer_invoice
+                : ItemRenderer_invoice
+            }
           />
         </View>
       </ScrollView>
