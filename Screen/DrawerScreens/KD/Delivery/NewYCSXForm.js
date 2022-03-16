@@ -308,7 +308,7 @@ const NewYCSXForm = ({route, navigation}) => {
             .then(response => {
               console.log(response.data.tk_status);
               //setEmplList(response.data.data);
-              if (response.data.tk_status == 'OK') {                
+              if (response.data.tk_status == 'OK') {
                 SweetAlert.showAlertWithOptions(
                   {
                     title: 'Thông báo',
@@ -322,11 +322,12 @@ const NewYCSXForm = ({route, navigation}) => {
                   },
                   callback => console.log('callback'),
                 );
-              } else {                
+              } else {
                 SweetAlert.showAlertWithOptions(
                   {
                     title: 'Thông báo',
-                    subTitle: 'Thêm YCSX mới thất bại ! ' + response.data.message,
+                    subTitle:
+                      'Thêm YCSX mới thất bại ! ' + response.data.message,
                     confirmButtonTitle: 'OK',
                     confirmButtonColor: '#000',
                     otherButtonTitle: 'Cancel',
@@ -407,7 +408,7 @@ const NewYCSXForm = ({route, navigation}) => {
   return (
     <View
       style={{flex: 1, justifyContent: 'center', backgroundColor: '#5ECFE3'}}>
-      <SafeAreaView style={{flex: 1}}>        
+      <SafeAreaView style={{flex: 1}}>
         <ScrollView>
           <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
             <View style={{width: '50%'}}>
@@ -518,7 +519,7 @@ const NewYCSXForm = ({route, navigation}) => {
             </View>
           </View>
         </ScrollView>
-        <View style={{flex:10, alignItems:'center', marginTop: 5}}>
+        <View style={{flex: 10, alignItems: 'center', marginTop: 5}}>
           <Button
             onPress={() => {
               prod_request_no_generate();
@@ -527,7 +528,6 @@ const NewYCSXForm = ({route, navigation}) => {
             color={'#49C016'}
           />
         </View>
-
 
         {buttonOption != 0 ? (
           <SearchableDropdown
