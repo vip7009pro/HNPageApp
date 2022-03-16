@@ -14,11 +14,21 @@ import {
   StyleSheet,
   StatusBar,
   Pressable,
+  Button,
+  PermissionsAndroid,
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {generalQuery} from '../../Api/Api';
 import LinearGradient from 'react-native-linear-gradient';
 import SweetAlert from 'react-native-sweet-alert';
+import XLSX from 'xlsx'
+var RNFS = require('react-native-fs');
+
+
+
+
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -91,6 +101,68 @@ const TableScreen = ({route, navigation}) => {
   const [sumbalanceqty, setsumbalanceqty] = useState(0);
   const [sumbalanceamount, setsumbalanceamount] = useState(0);
   const [receiveParams,setreceiveParams] = useState(route.params);
+
+
+  const exportDataToExcel = (data) => {
+
+    // Created Sample data
+    let sample_data_to_export = data;
+    console.log(data);
+  
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.json_to_sheet(sample_data_to_export)    
+    XLSX.utils.book_append_sheet(wb,ws,"Data")
+    const wbout = XLSX.write(wb, {type:'binary', bookType:"xlsx"});
+  
+    // Write generated excel to Storage
+    RNFS.writeFile(RNFS.ExternalStorageDirectoryPath + '/zzzz.xlsx', wbout, 'ascii').then((r)=>{
+     console.log('Success');
+    }).catch((e)=>{
+      console.log('Error', e);
+    });
+  
+  }
+  
+  const handleClick = async () => {
+  
+    try{
+      // Check for Permission (check if permission is already given or not)
+      let isPermitedExternalStorage = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+  
+      if(!isPermitedExternalStorage){
+  
+        // Ask for permission
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: "Storage permission needed",
+            buttonNeutral: "Ask Me Later",
+            buttonNegative: "Cancel",
+            buttonPositive: "OK"
+          }
+        ); 
+        
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Permission Granted (calling our exportDataToExcel function)
+          exportDataToExcel(emplList);
+          console.log("Permission granted");
+        } else {
+          // Permission denied
+          console.log("Permission denied");
+        }
+      }else{
+         // Already have Permission (calling our exportDataToExcel function)
+         exportDataToExcel();
+      }
+    }catch(e){
+      console.log('Error while checking permission');
+      console.log(e);
+      return
+    }
+    
+  };
+
+
     
   const onRefresh = useCallback(() => {
     getEmplList(receiveParams);
@@ -426,6 +498,14 @@ const TableScreen = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
+      <Button
+      title='Save Excel'
+      onPress={()=>{
+        handleClick();
+      }}
+      color='green'>
+
+      </Button>
       {indicator && <ActivityIndicator size="large" color="#00ff00" />}
       {receiveParams.OPTIONS=='Tra cứu PO'? sumaryRenderer_po() : receiveParams.OPTIONS=='Tra cứu invoice'? sumaryRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu kế hoạch'? sumaryRenderer_invoice(): receiveParams.OPTIONS=='Tra cứu FCST'? sumaryRenderer_invoice() :receiveParams.OPTIONS=='Tra cứu YCSX'?  sumaryRenderer_invoice() : sumaryRenderer_invoice()}
       <ScrollView horizontal={true}>

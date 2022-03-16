@@ -16,6 +16,8 @@ target 'HNPageApp' do
 
   pod 'RNSweetAlert', :path => '../node_modules/react-native-sweet-alert'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'HNPageAppTests' do
     inherit! :complete
     # Pods for testing

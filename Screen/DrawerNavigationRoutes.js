@@ -245,7 +245,6 @@ const DrawerNavigatorRoutes = props => {
         component={INSPECTIONScreenStack}
       />
 
-
   {/*     <Drawer.Screen
         name="HomeScreenStack"
         options={{
