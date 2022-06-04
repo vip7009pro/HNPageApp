@@ -11,23 +11,12 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		2736653E8DC7CAB36F7EF482 /* libPods-HNPageApp-HNPageAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C9FF4C4BDD44CA78B56F6B9 /* libPods-HNPageApp-HNPageAppTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		6503F6ACC51B40119F8D7A65 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26CEA61B92DE438EBB73C5E5 /* AntDesign.ttf */; };
-		7E420EBAD78B44CF97AB6A19 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E175B6B1BF24A75B65834B8 /* Entypo.ttf */; };
-		8EFC9D29457F48658E635352 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09C2E6B51036498DB533A3EF /* EvilIcons.ttf */; };
-		65503FC2658341D08BA58AA7 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9D9D66439914254A548032F /* Feather.ttf */; };
-		6CC5169A3EFB4C28BAA70319 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3D5F2B4EEEF14E42A524D8E0 /* FontAwesome.ttf */; };
-		9B44C97A823C4B2F84B6E448 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE1D5454D1D5451ABDB67C22 /* FontAwesome5_Brands.ttf */; };
-		B49634A948CF43A08A60C6D4 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7198A23CC3B84F2C9862D027 /* FontAwesome5_Regular.ttf */; };
-		C46BA69AB61B42829C69F5CA /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 476F678C07884ACAB0CAB977 /* FontAwesome5_Solid.ttf */; };
-		934EE3786A6B4203BBC91CDA /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34D6542268894F2BB8C70D5D /* Fontisto.ttf */; };
-		ED1BCDD2C17A43DCB73E1B49 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A118A1D275A84815B77DB074 /* Foundation.ttf */; };
-		361DEF52398C459E9D266678 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC16639549A6474DAB6D6F2E /* Ionicons.ttf */; };
-		70C2E140FD0847048AD52F22 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0B9231F8A8C4A85A44F48E8 /* MaterialCommunityIcons.ttf */; };
-		5DB11A998545447C8762E723 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F05FF69E289C4DF1990A6645 /* MaterialIcons.ttf */; };
-		AD8E20AE579647B180AD190C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 28510BB3CB3F412B9DB4C798 /* Octicons.ttf */; };
-		48474773181E4EB699473AD0 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE26A7603A0F4E1482BEE819 /* SimpleLineIcons.ttf */; };
-		4D8E1415C53A4243B9E5776F /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C45E01A229CF49328B843A4F /* Zocial.ttf */; };
+		983D06E14AA5C232801804C9 /* libPods-HNPageApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FF895B39EF61E5D7D0C09A /* libPods-HNPageApp.a */; };
+		9C0DB5BA27FF205C002FEEAC /* SweetAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0DB5B927FF205C002FEEAC /* SweetAlert.swift */; };
+		9C0DB5BE27FF2160002FEEAC /* SweetAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0DB5BD27FF2160002FEEAC /* SweetAlertManager.swift */; };
+		9C0DB5C227FF21D0002FEEAC /* SweetAlertBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0DB5C127FF21D0002FEEAC /* SweetAlertBridge.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,30 +33,24 @@
 		00E356EE1AD99517003FC87E /* HNPageAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HNPageAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HNPageAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HNPageAppTests.m; sourceTree = "<group>"; };
+		134B8CF56B558D0C2E8B639B /* Pods-HNPageApp-HNPageAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HNPageApp-HNPageAppTests.release.xcconfig"; path = "Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HNPageApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HNPageApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HNPageApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = HNPageApp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = HNPageApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = HNPageApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = HNPageApp/main.m; sourceTree = "<group>"; };
+		7C9FF4C4BDD44CA78B56F6B9 /* libPods-HNPageApp-HNPageAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HNPageApp-HNPageAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HNPageApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		85DA9A8D96D7D6123F2B261F /* Pods-HNPageApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HNPageApp.release.xcconfig"; path = "Target Support Files/Pods-HNPageApp/Pods-HNPageApp.release.xcconfig"; sourceTree = "<group>"; };
+		9C0DB5B827FF205C002FEEAC /* HNPageApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HNPageApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		9C0DB5B927FF205C002FEEAC /* SweetAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetAlert.swift; sourceTree = "<group>"; };
+		9C0DB5BD27FF2160002FEEAC /* SweetAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetAlertManager.swift; sourceTree = "<group>"; };
+		9C0DB5C127FF21D0002FEEAC /* SweetAlertBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SweetAlertBridge.m; sourceTree = "<group>"; };
+		C1FF895B39EF61E5D7D0C09A /* libPods-HNPageApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HNPageApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E541480476E6A25550EBE265 /* Pods-HNPageApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HNPageApp.debug.xcconfig"; path = "Target Support Files/Pods-HNPageApp/Pods-HNPageApp.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		26CEA61B92DE438EBB73C5E5 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		6E175B6B1BF24A75B65834B8 /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		09C2E6B51036498DB533A3EF /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E9D9D66439914254A548032F /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3D5F2B4EEEF14E42A524D8E0 /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AE1D5454D1D5451ABDB67C22 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Brands.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		7198A23CC3B84F2C9862D027 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Regular.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		476F678C07884ACAB0CAB977 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Solid.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		34D6542268894F2BB8C70D5D /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A118A1D275A84815B77DB074 /* Foundation.ttf */ = {isa = PBXFileReference; name = "Foundation.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FC16639549A6474DAB6D6F2E /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C0B9231F8A8C4A85A44F48E8 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		F05FF69E289C4DF1990A6645 /* MaterialIcons.ttf */ = {isa = PBXFileReference; name = "MaterialIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		28510BB3CB3F412B9DB4C798 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AE26A7603A0F4E1482BEE819 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C45E01A229CF49328B843A4F /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F83F2A4DFF82F0028FBA5D17 /* Pods-HNPageApp-HNPageAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HNPageApp-HNPageAppTests.debug.xcconfig"; path = "Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2736653E8DC7CAB36F7EF482 /* libPods-HNPageApp-HNPageAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				983D06E14AA5C232801804C9 /* libPods-HNPageApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +99,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				9C0DB5B927FF205C002FEEAC /* SweetAlert.swift */,
+				9C0DB5B827FF205C002FEEAC /* HNPageApp-Bridging-Header.h */,
+				9C0DB5BD27FF2160002FEEAC /* SweetAlertManager.swift */,
+				9C0DB5C127FF21D0002FEEAC /* SweetAlertBridge.m */,
 			);
 			name = HNPageApp;
 			sourceTree = "<group>";
@@ -122,8 +111,17 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				C1FF895B39EF61E5D7D0C09A /* libPods-HNPageApp.a */,
+				7C9FF4C4BDD44CA78B56F6B9 /* libPods-HNPageApp-HNPageAppTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		507FC62D0F3C4243A9D16085 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -142,6 +140,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				507FC62D0F3C4243A9D16085 /* Resources */,
+				EA3D34B3F3720E097E9CD685 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -157,29 +156,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		507FC62D0F3C4243A9D16085 /* Resources */ = {
-			isa = "PBXGroup";
+		EA3D34B3F3720E097E9CD685 /* Pods */ = {
+			isa = PBXGroup;
 			children = (
-				26CEA61B92DE438EBB73C5E5 /* AntDesign.ttf */,
-				6E175B6B1BF24A75B65834B8 /* Entypo.ttf */,
-				09C2E6B51036498DB533A3EF /* EvilIcons.ttf */,
-				E9D9D66439914254A548032F /* Feather.ttf */,
-				3D5F2B4EEEF14E42A524D8E0 /* FontAwesome.ttf */,
-				AE1D5454D1D5451ABDB67C22 /* FontAwesome5_Brands.ttf */,
-				7198A23CC3B84F2C9862D027 /* FontAwesome5_Regular.ttf */,
-				476F678C07884ACAB0CAB977 /* FontAwesome5_Solid.ttf */,
-				34D6542268894F2BB8C70D5D /* Fontisto.ttf */,
-				A118A1D275A84815B77DB074 /* Foundation.ttf */,
-				FC16639549A6474DAB6D6F2E /* Ionicons.ttf */,
-				C0B9231F8A8C4A85A44F48E8 /* MaterialCommunityIcons.ttf */,
-				F05FF69E289C4DF1990A6645 /* MaterialIcons.ttf */,
-				28510BB3CB3F412B9DB4C798 /* Octicons.ttf */,
-				AE26A7603A0F4E1482BEE819 /* SimpleLineIcons.ttf */,
-				C45E01A229CF49328B843A4F /* Zocial.ttf */,
+				E541480476E6A25550EBE265 /* Pods-HNPageApp.debug.xcconfig */,
+				85DA9A8D96D7D6123F2B261F /* Pods-HNPageApp.release.xcconfig */,
+				F83F2A4DFF82F0028FBA5D17 /* Pods-HNPageApp-HNPageAppTests.debug.xcconfig */,
+				134B8CF56B558D0C2E8B639B /* Pods-HNPageApp-HNPageAppTests.release.xcconfig */,
 			);
-			name = Resources;
+			path = Pods;
 			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -188,9 +174,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "HNPageAppTests" */;
 			buildPhases = (
+				23FFBD4B5BC705D0CD4B8499 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				E585DA11578C79C9D8CCC347 /* [CP] Embed Pods Frameworks */,
+				5157F35669209FCD76CE9106 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -206,11 +195,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "HNPageApp" */;
 			buildPhases = (
+				387AD3F0070BBB2B75E405D4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				6B17A6491F8354074D9AA7D9 /* [CP] Embed Pods Frameworks */,
+				EA18D6B2E8E1DC137CA6F7AE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,7 +226,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -271,22 +263,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				6503F6ACC51B40119F8D7A65 /* AntDesign.ttf in Resources */,
-				7E420EBAD78B44CF97AB6A19 /* Entypo.ttf in Resources */,
-				8EFC9D29457F48658E635352 /* EvilIcons.ttf in Resources */,
-				65503FC2658341D08BA58AA7 /* Feather.ttf in Resources */,
-				6CC5169A3EFB4C28BAA70319 /* FontAwesome.ttf in Resources */,
-				9B44C97A823C4B2F84B6E448 /* FontAwesome5_Brands.ttf in Resources */,
-				B49634A948CF43A08A60C6D4 /* FontAwesome5_Regular.ttf in Resources */,
-				C46BA69AB61B42829C69F5CA /* FontAwesome5_Solid.ttf in Resources */,
-				934EE3786A6B4203BBC91CDA /* Fontisto.ttf in Resources */,
-				ED1BCDD2C17A43DCB73E1B49 /* Foundation.ttf in Resources */,
-				361DEF52398C459E9D266678 /* Ionicons.ttf in Resources */,
-				70C2E140FD0847048AD52F22 /* MaterialCommunityIcons.ttf in Resources */,
-				5DB11A998545447C8762E723 /* MaterialIcons.ttf in Resources */,
-				AD8E20AE579647B180AD190C /* Octicons.ttf in Resources */,
-				48474773181E4EB699473AD0 /* SimpleLineIcons.ttf in Resources */,
-				4D8E1415C53A4243B9E5776F /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +282,118 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+		};
+		23FFBD4B5BC705D0CD4B8499 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HNPageApp-HNPageAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		387AD3F0070BBB2B75E405D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HNPageApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5157F35669209FCD76CE9106 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B17A6491F8354074D9AA7D9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp/Pods-HNPageApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp/Pods-HNPageApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HNPageApp/Pods-HNPageApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E585DA11578C79C9D8CCC347 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HNPageApp-HNPageAppTests/Pods-HNPageApp-HNPageAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA18D6B2E8E1DC137CA6F7AE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp/Pods-HNPageApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HNPageApp/Pods-HNPageApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HNPageApp/Pods-HNPageApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -342,7 +430,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				9C0DB5C227FF21D0002FEEAC /* SweetAlertBridge.m in Sources */,
+				9C0DB5BE27FF2160002FEEAC /* SweetAlertManager.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				9C0DB5BA27FF205C002FEEAC /* SweetAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,7 +450,9 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F83F2A4DFF82F0028FBA5D17 /* Pods-HNPageApp-HNPageAppTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -385,7 +478,9 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 134B8CF56B558D0C2E8B639B /* Pods-HNPageApp-HNPageAppTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = HNPageAppTests/Info.plist;
@@ -408,6 +503,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E541480476E6A25550EBE265 /* Pods-HNPageApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -425,6 +521,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HNPageApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "HNPageApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -433,6 +530,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85DA9A8D96D7D6123F2B261F /* Pods-HNPageApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -449,6 +547,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = HNPageApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "HNPageApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -487,6 +586,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -551,6 +651,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

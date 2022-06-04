@@ -5,6 +5,7 @@
 import moment from 'moment';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  NativeModules,
   RefreshControl,
   ActivityIndicator,
   View,
@@ -29,6 +30,20 @@ import { generalQuery } from '../../../../Api/Api';
 import XLSX from 'xlsx';
 var RNFS = require('react-native-fs');
 import FileViewer from 'react-native-file-viewer';
+
+const DEFAULT_OPTIONS = {
+  title: '',
+  subTitle: '',
+  confirmButtonTitle: 'OK',
+  confirmButtonColor: '#000000',
+  barColor: '',
+  otherButtonTitle: 'Cancel',
+  otherButtonColor: '#dedede',
+  style: 'success',
+  cancellable: true
+}
+
+const Native = Platform.OS === 'android' ? NativeModules.RNSweetAlert : NativeModules.SweetAlertManager;
 
 const styles = StyleSheet.create({
   container: {
@@ -120,7 +135,7 @@ const InOutTable = ({route, navigation}) => {
     )
       .then(r => {
         console.log('Success');
-        SweetAlert.showAlertWithOptions(
+        Native.showAlertWithOptions(
           {
             title: 'Thông báo',
             subTitle: 'Lưu file excel thành công: ' + pathexcel,
@@ -139,7 +154,7 @@ const InOutTable = ({route, navigation}) => {
                   
                 })
                 .catch(error => {
-                  SweetAlert.showAlertWithOptions(
+                  Native.showAlertWithOptions(
                     {
                       title: 'Thông báo',
                       subTitle: 'Thất bại: ' + error.toString(),
@@ -157,7 +172,7 @@ const InOutTable = ({route, navigation}) => {
       })
       .catch(e => {
         console.log('Error', e);
-        SweetAlert.showAlertWithOptions(
+        Native.showAlertWithOptions(
           {
             title: 'Thông báo',
             subTitle: 'Có lỗi: '+e.toString() ,
@@ -233,7 +248,7 @@ const InOutTable = ({route, navigation}) => {
         if (response.data.status == 'NG') {
           setRefreshing(false);
           setIndicator(false);          
-          SweetAlert.showAlertWithOptions(
+          Native.showAlertWithOptions(
             {
               title: 'Thông báo',
               subTitle: 'Không có data',
@@ -247,7 +262,7 @@ const InOutTable = ({route, navigation}) => {
             callback => console.log('callback'),
           );    
         } else {         
-          SweetAlert.showAlertWithOptions(
+          Native.showAlertWithOptions(
             {
               title: 'Thông báo',
               subTitle: 'Đã load ' + response.data.data.length + ' dòng dữ liệu',

@@ -14,11 +14,7 @@ target 'HNPageApp' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  pod 'RNSweetAlert', :path => '../node_modules/react-native-sweet-alert'
 
-  pod 'RNFS', :path => '../node_modules/react-native-fs'
-
-  pod 'RNFileViewer', :path => '../node_modules/react-native-file-viewer'
 
   target 'HNPageAppTests' do
     inherit! :complete
