@@ -14,8 +14,6 @@ target 'HNPageApp' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-
-
   target 'HNPageAppTests' do
     inherit! :complete
     # Pods for testing
