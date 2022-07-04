@@ -20,14 +20,13 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import LinearGradient from 'react-native-linear-gradient';
 import {generalQuery} from '../../../../Api/Api';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CheckBox from '@react-native-community/checkbox';
 import SearchableDropdown from 'react-native-searchable-dropdown';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import SweetAlert from 'react-native-sweet-alert';
 
 const styles = StyleSheet.create({

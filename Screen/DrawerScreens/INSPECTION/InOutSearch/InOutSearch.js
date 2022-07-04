@@ -21,7 +21,6 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import LinearGradient from 'react-native-linear-gradient';
 import {generalQuery} from '../../../../Api/Api';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';

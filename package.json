@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/datetimepicker": "^5.1.0",
     "@react-native-community/masked-view": "^0.1.11",
@@ -24,7 +24,7 @@
     "axios": "^0.25.0",
     "moment": "^2.29.1",
     "react": "17.0.2",
-    "react-native": "0.67.1",
+    "react-native": "0.67.4",
     "react-native-code-push": "^7.0.4",
     "react-native-customised-editable-picker": "0.0.14",
     "react-native-datepicker": "^1.7.2",
@@ -34,7 +34,6 @@
     "react-native-fs": "^2.19.0",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-ionicons": "^4.6.5",
-    "react-native-linear-gradient": "^2.5.6",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "^3.3.2",
@@ -53,8 +52,7 @@
     "babel-jest": "26.6.3",
     "eslint": "7.14.0",
     "jest": "26.6.3",
-    "metro-react-native-babel-preset": "0.66.2",
-    "react-test-renderer": "17.0.2"
+    "metro-react-native-babel-preset": "0.66.2"
   },
   "jest": {
     "preset": "react-native"

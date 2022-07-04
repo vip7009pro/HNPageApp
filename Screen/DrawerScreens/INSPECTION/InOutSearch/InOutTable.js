@@ -24,7 +24,6 @@ import {
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 
-import LinearGradient from 'react-native-linear-gradient';
 import SweetAlert from 'react-native-sweet-alert';
 import { generalQuery } from '../../../../Api/Api';
 import XLSX from 'xlsx';

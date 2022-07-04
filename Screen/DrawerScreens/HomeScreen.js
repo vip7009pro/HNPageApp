@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {generalQuery} from '../../Api/Api';
-import LinearGradient from 'react-native-linear-gradient';
 import {
   Table,
   TableWrapper,

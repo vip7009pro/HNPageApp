@@ -15,7 +15,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from './Components/Loader';
 import {generalQuery} from '../Api/Api';
 import SweetAlert from 'react-native-sweet-alert';

@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
 import {Alert, Pressable, SafeAreaView, SectionList, StyleSheet, Text, View} from 'react-native';
 import { Button } from 'react-native-elements/dist/buttons/Button';
