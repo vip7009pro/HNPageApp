@@ -2,7 +2,8 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 /* const API_URL = "http://14.160.33.94:3020/api"; */
 /* const API_URL = 'http://14.160.33.94:100/api'; */
-const API_URL = 'http://localhost/api';
+/* const API_URL = 'http://localhost/api'; */
+const API_URL = 'http://14.160.33.94:5011/api';
 
 export function login(user, pass) {
   axios

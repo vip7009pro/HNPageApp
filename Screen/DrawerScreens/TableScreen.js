@@ -661,6 +661,7 @@ const TableScreen = ({route, navigation}) => {
             } */
             style={styles.flatlist_format}
             data={emplList}
+            initialNumToRender={50} 
             renderItem={
               receiveParams.OPTIONS == 'Tra cứu PO'
                 ? ItemRenderer_po
