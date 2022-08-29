@@ -56,29 +56,24 @@ const App = () => {
       updateDialog: true,
       installMode: codePush.InstallMode.IMMEDIATE
   });
-
   },[]);
+  
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SplashScreen">
-        {/* SplashScreen which will come once for 5 Seconds */}
+      <Stack.Navigator initialRouteName="SplashScreen">        
         <Stack.Screen
           name="SplashScreen"
-          component={SplashScreen}
-          // Hiding header for Splash Screen
+          component={SplashScreen}         
           options={{headerShown: false}}
-        />
-        {/* Auth Navigator: Include Login and Signup */}
+        />      
         <Stack.Screen
           name="Auth"
           component={Auth}
           options={{headerShown: false}}
-        />
-        {/* Navigation Drawer as a landing page */}
+        />       
         <Stack.Screen
           name="DrawerNavigationRoutes"
-          component={TabNavigatorRoutes}
-          // Hiding header for Navigation Drawer
+          component={TabNavigatorRoutes}         
           options={{headerShown: false}}
         />
       </Stack.Navigator>
@@ -87,5 +82,4 @@ const App = () => {
 };
 
 export default App;
-
 /* export default codePush(codePushOptions)(App); */

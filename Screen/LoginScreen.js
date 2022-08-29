@@ -29,9 +29,6 @@ const LoginScreen = ({navigation}) => {
   const passwordInputRef = createRef();
 
   const handleSubmitPress = () => {
-    /* AsyncStorage.setItem('user_id', 'hung');
-    console.log('hung');
-    navigation.replace('DrawerNavigationRoutes'); */
 
     if (!userEmail) {
       alert('Please fill Email');
@@ -46,6 +43,7 @@ const LoginScreen = ({navigation}) => {
       user: userEmail,
       pass: userPassword,
     };
+        
     generalQuery('login2', submitData)
       .then(response => {
         let kq = response.data.tk_status;
