@@ -30,7 +30,6 @@ export async function checkLogin() {
   });
   return data;
 }
-
 export async function generalQuery(command, queryData) {
   let data = await axios.post(API_URL, {
     command: command,

@@ -116,15 +116,6 @@ const KDScreenStack = ({navigation}) => {
     );
   };
 
-
-const HomeDrawerStack =({navigation})=> {
-    return (
-      <Stack.Navigator initialRouteName="KDStack">
-        <Stack.Screen name="KDStack" component={KDScreenStack}></Stack.Screen>
-        <Stack.Screen name="IPStack" component={INSPECTIONScreenStack}></Stack.Screen>
-      </Stack.Navigator>
-    );
-}
 export default function HomeDrawer() {
   return (
     <Stack.Navigator initialRouteName="DrawerMenu">

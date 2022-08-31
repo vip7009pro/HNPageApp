@@ -55,8 +55,8 @@ const App = () => {
       updateDialog: true,
       installMode: codePush.InstallMode.IMMEDIATE
   });
-
   },[]);
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">        
@@ -80,5 +80,4 @@ const App = () => {
   );
 };
 export default App;
-
 /* export default codePush(codePushOptions)(App); */
