@@ -1,8 +1,6 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
-/* const API_URL = "http://14.160.33.94:3020/api"; */
-/* const API_URL = 'http://14.160.33.94:100/api'; */
-const API_URL = 'http://localhost/api';
+const API_URL = 'http://14.160.33.94:3007/api';
 
 export function login(user, pass) {
   axios
@@ -26,7 +24,6 @@ export function login(user, pass) {
       return 0;
     });
 }
-
 export async function checkLogin() {
   let data = await axios.post(API_URL, {
     command: 'checklogin',

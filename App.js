@@ -23,8 +23,7 @@ LogBox.ignoreLogs([
 let codePushOptions = { checkFrequency: codePush.CheckFrequency.ON_APP_RESUME };
 const Stack = createStackNavigator();
 
-const Auth = () => {
-  // Stack Navigator for Login and Sign up Screen
+const Auth = () => {  
   return (
     <Stack.Navigator initialRouteName="LoginScreen">
       <Stack.Screen
@@ -60,32 +59,26 @@ const App = () => {
   },[]);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SplashScreen">
-        {/* SplashScreen which will come once for 5 Seconds */}
+      <Stack.Navigator initialRouteName="SplashScreen">        
         <Stack.Screen
           name="SplashScreen"
-          component={SplashScreen}
-          // Hiding header for Splash Screen
+          component={SplashScreen}         
           options={{headerShown: false}}
-        />
-        {/* Auth Navigator: Include Login and Signup */}
+        />      
         <Stack.Screen
           name="Auth"
           component={Auth}
           options={{headerShown: false}}
-        />
-        {/* Navigation Drawer as a landing page */}
+        />       
         <Stack.Screen
           name="DrawerNavigationRoutes"
-          component={TabNavigatorRoutes}
-          // Hiding header for Navigation Drawer
+          component={TabNavigatorRoutes}         
           options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
 export default App;
 
 /* export default codePush(codePushOptions)(App); */

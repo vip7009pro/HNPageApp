@@ -43,7 +43,6 @@ const TabNavigatorRoutes = props => {
          component={HomeDrawer}
         options={{headerShown: false}}
       />
-
       <Tab.Screen
         name="Cá nhân"
         component={AccountTab}
